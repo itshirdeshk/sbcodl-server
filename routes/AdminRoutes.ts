@@ -78,6 +78,10 @@ import { getStudentsSchema } from "../validation/common/student/GetStudents";
 import { GetStudents } from "../controller/common/student/GetStudents";
 import { generateEnrollmentNumberSchema } from "../validation/common/admission/GenerateEnrollmentNumber";
 import { GenerateEnrollmentNumber } from "../controller/common/admission/GenerateEnrollmentNumber";
+import { getInstituteByIdSchema } from "../validation/common/institute/GetInstituteById";
+import { getInstitutesSchema } from "../validation/common/institute/GetInstitutes";
+import { GetInstituteById } from "../controller/common/institute/GetInstituteById";
+import { GetInstitutes } from "../controller/common/institute/GetInstitutes";
 
 
 const router = Router();
@@ -103,6 +107,9 @@ router.put("/institute", instituteFileUploadHandler.single('image'), allowOnlyAd
 router.delete("/institute/:id", allowOnlyAdmin, afterParamsValidation(deleteInstituteSchema), createControllerHandlerFor(DeleteInstitute));
 router.get("/institute/registration-number/:applicationNumber", allowOnlyAdmin, afterParamsValidation(generateInstituteRegistrationNumberSchema), createControllerHandlerFor(GenerateInstituteRegistrationNumber));
 router.get("/institute/certificate/:registrationNumber", allowOnlyAdmin, afterParamsValidation(generateInstituteCertificateSchema), createControllerHandlerFor(GenerateInstituteCertificate));
+
+router.get("/institute/:id", allowOnlyAdmin, afterParamsValidation(getInstituteByIdSchema), createControllerHandlerFor(GetInstituteById));
+router.post("/institute/list", allowOnlyAdmin, afterPayloadValidation(getInstitutesSchema), createControllerHandlerFor(GetInstitutes));
 
 // Course
 router.post("/course", allowOnlyAdmin, afterPayloadValidation(createCourseSchema), createControllerHandlerFor(CreateCourse));
