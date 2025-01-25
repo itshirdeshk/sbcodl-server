@@ -64,6 +64,14 @@ import { getEnquiryByIdSchema } from "../validation/admin/enquiry/GetEnquiryById
 import { getEnquiresSchema } from "../validation/admin/enquiry/GetEnquires";
 import { GetEnquiryById } from "../controller/admin/enquiry/GetEnquiryById";
 import { GetEnquiries } from "../controller/admin/enquiry/GetEnquires";
+import { getNoticeByIdSchema } from "../validation/common/notice/GetNoticeById";
+import { getNoticesSchema } from "../validation/common/notice/GetNotices";
+import { GetNoticeById } from "../controller/common/notice/GetNoticeById";
+import { GetNotices } from "../controller/common/notice/GetNotices";
+import { getResultByIdSchema } from "../validation/common/result/GetResultById";
+import { getResultsSchema } from "../validation/common/result/GetResults";
+import { GetResultById } from "../controller/common/result/GetResultById";
+import { GetResults } from "../controller/common/result/GetResults";
 
 
 const router = Router();
@@ -105,10 +113,16 @@ router.post("/result", allowOnlyAdmin, afterPayloadValidation(createResultSchema
 router.put("/result", allowOnlyAdmin, afterPayloadValidation(updateResultSchema), createControllerHandlerFor(UpdateResult));
 router.delete("/result/:id", allowOnlyAdmin, afterParamsValidation(deleteResultSchema), createControllerHandlerFor(DeleteResult));
 
+router.get('/result/:id', allowOnlyAdmin, afterParamsValidation(getResultByIdSchema), createControllerHandlerFor(GetResultById));
+router.post('/result/list', allowOnlyAdmin, afterPayloadValidation(getResultsSchema), createControllerHandlerFor(GetResults));
+
 // Notice
 router.post("/notice", allowOnlyAdmin, afterPayloadValidation(createNoticeSchema), createControllerHandlerFor(CreateNotice));
 router.put("/notice", allowOnlyAdmin, afterPayloadValidation(updateNoticeSchema), createControllerHandlerFor(UpdateNotice));
 router.delete("/notice/:id", allowOnlyAdmin, afterParamsValidation(deleteNoticeSchema), createControllerHandlerFor(DeleteNotice));
+
+router.get('/notice/:id', allowOnlyAdmin, afterParamsValidation(getNoticeByIdSchema), createControllerHandlerFor(GetNoticeById));
+router.post('/notice/list', allowOnlyAdmin, afterPayloadValidation(getNoticesSchema), createControllerHandlerFor(GetNotices));
 
 // Enquiry
 router.put("/enquiry", allowOnlyAdmin, afterPayloadValidation(updateEnquirySchema), createControllerHandlerFor(UpdateEnquiry));
