@@ -52,6 +52,14 @@ import { generateInstituteRegistrationNumberSchema } from "../validation/common/
 import { GenerateInstituteCertificate } from "../controller/common/institute/GenerateInstituteCertificate";
 import { generateInstituteCertificateSchema } from "../validation/common/institute/GenerateInstituteCertificate";
 import { GenerateInstituteRegistrationNumber } from "../controller/common/institute/GenerateInstituteRegistrationNumber";
+import { getCourseByIdSchema } from "../validation/common/course/GetCourseById";
+import { GetCourseById } from "../controller/common/course/GetCourseById";
+import { getCoursesSchema } from "../validation/common/course/GetCourses";
+import { GetCourses } from "../controller/common/course/GetCourses";
+import { getSubjectByIdSchema } from "../validation/common/subject/GetSubjectById";
+import { getSubjectsSchema } from "../validation/common/subject/GetSubjects";
+import { GetSubjectById } from "../controller/common/subject/GetSubjectById";
+import { GetSubjects } from "../controller/common/subject/GetSubjects";
 
 
 const router = Router();
@@ -77,10 +85,16 @@ router.post("/course", allowOnlyAdmin, afterPayloadValidation(createCourseSchema
 router.put("/course", allowOnlyAdmin, afterPayloadValidation(updateCourseSchema), createControllerHandlerFor(UpdateCourse));
 router.delete("/course/:id", allowOnlyAdmin, afterParamsValidation(deleteCourseSchema), createControllerHandlerFor(DeleteCourse));
 
+router.get('/course/:id', allowOnlyAdmin, afterParamsValidation(getCourseByIdSchema), createControllerHandlerFor(GetCourseById));
+router.post('/course/list', allowOnlyAdmin, afterPayloadValidation(getCoursesSchema), createControllerHandlerFor(GetCourses));
+
 // Subject
 router.post("/subject", allowOnlyAdmin, afterPayloadValidation(createSubjectSchema), createControllerHandlerFor(CreateSubject));
 router.put("/subject", allowOnlyAdmin, afterPayloadValidation(updateSubjectSchema), createControllerHandlerFor(UpdateSubject));
 router.delete("/subject/:id", allowOnlyAdmin, afterParamsValidation(deleteSubjectSchema), createControllerHandlerFor(DeleteSubject));
+
+router.get('/subject/:id', allowOnlyAdmin, afterParamsValidation(getSubjectByIdSchema), createControllerHandlerFor(GetSubjectById));
+router.post('/subject/list', allowOnlyAdmin, afterPayloadValidation(getSubjectsSchema), createControllerHandlerFor(GetSubjects));
 
 // Result
 router.post("/result", allowOnlyAdmin, afterPayloadValidation(createResultSchema), createControllerHandlerFor(CreateResult));
