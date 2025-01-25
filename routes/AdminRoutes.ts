@@ -72,6 +72,12 @@ import { getResultByIdSchema } from "../validation/common/result/GetResultById";
 import { getResultsSchema } from "../validation/common/result/GetResults";
 import { GetResultById } from "../controller/common/result/GetResultById";
 import { GetResults } from "../controller/common/result/GetResults";
+import { getStudentByIdSchema } from "../validation/common/student/GetStudentById";
+import { GetStudentById } from "../controller/common/student/GetStudentById";
+import { getStudentsSchema } from "../validation/common/student/GetStudents";
+import { GetStudents } from "../controller/common/student/GetStudents";
+import { generateEnrollmentNumberSchema } from "../validation/common/admission/GenerateEnrollmentNumber";
+import { GenerateEnrollmentNumber } from "../controller/common/admission/GenerateEnrollmentNumber";
 
 
 const router = Router();
@@ -85,7 +91,13 @@ router.post("/admission", admissionFileUploadHandler.single("image"), allowOnlyA
 router.put("/admission", admissionFileUploadHandler.single("image"), allowOnlyAdmin, admissionParseJsonFieldsMiddleware, afterPayloadValidation(updateAdmissionSchema), createControllerHandlerFor(UpdateAdmission));
 router.delete("/admission/:id", allowOnlyAdmin, afterParamsValidation(deleteAdmissionSchema), createControllerHandlerFor(DeleteAdmission));
 
-// Instiute
+router.get("/admission/enrollment-number/:applicationNumber", allowOnlyAdmin, afterParamsValidation(generateEnrollmentNumberSchema), createControllerHandlerFor(GenerateEnrollmentNumber));
+
+// Student
+router.get("/student/:id", allowOnlyAdmin, afterParamsValidation(getStudentByIdSchema), createControllerHandlerFor(GetStudentById));
+router.post("/student/list", allowOnlyAdmin, afterPayloadValidation(getStudentsSchema), createControllerHandlerFor(GetStudents));
+
+// Institute
 router.post("/institute", instituteFileUploadHandler.single('image'), allowOnlyAdmin, afterPayloadValidation(createInsituteSchema), createControllerHandlerFor(CreateInstitute));
 router.put("/institute", instituteFileUploadHandler.single('image'), allowOnlyAdmin, afterPayloadValidation(updateInsituteSchema), createControllerHandlerFor(UpdateInstitute));
 router.delete("/institute/:id", allowOnlyAdmin, afterParamsValidation(deleteInstituteSchema), createControllerHandlerFor(DeleteInstitute));

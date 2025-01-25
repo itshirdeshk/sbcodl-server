@@ -12,7 +12,7 @@ export const GenerateEnrollmentNumber = async (
 ) => {
     const {
         applicationNumber
-    } = req.body;
+    } = req.params;
 
     const student = await prisma.student.findUnique({
         where: {
@@ -39,7 +39,7 @@ export const GenerateEnrollmentNumber = async (
             'Payment is pending. Please wait for the payment to be processed.'
         );
     } else if (student?.paymentStatus === 'SUCCESS') {
-        const enrollmentNumber = generateEnrollmentNumber();
+        const enrollmentNumber: string = generateEnrollmentNumber();
         await prisma.student.update({
             where: {
                 applicationNumber: applicationNumber,
