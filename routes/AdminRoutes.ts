@@ -84,7 +84,7 @@ import { GetInstituteById } from "../controller/common/institute/GetInstituteByI
 import { GetInstitutes } from "../controller/common/institute/GetInstitutes";
 
 
-const router = Router();
+export const router = Router();
 
 // Auth
 router.post("/auth/register", afterPayloadValidation(adminRegisterSchema), createControllerHandlerFor(AdminRegister));
