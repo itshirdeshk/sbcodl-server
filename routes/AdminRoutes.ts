@@ -60,6 +60,10 @@ import { getSubjectByIdSchema } from "../validation/common/subject/GetSubjectByI
 import { getSubjectsSchema } from "../validation/common/subject/GetSubjects";
 import { GetSubjectById } from "../controller/common/subject/GetSubjectById";
 import { GetSubjects } from "../controller/common/subject/GetSubjects";
+import { getEnquiryByIdSchema } from "../validation/admin/enquiry/GetEnquiryById";
+import { getEnquiresSchema } from "../validation/admin/enquiry/GetEnquires";
+import { GetEnquiryById } from "../controller/admin/enquiry/GetEnquiryById";
+import { GetEnquiries } from "../controller/admin/enquiry/GetEnquires";
 
 
 const router = Router();
@@ -109,6 +113,9 @@ router.delete("/notice/:id", allowOnlyAdmin, afterParamsValidation(deleteNoticeS
 // Enquiry
 router.put("/enquiry", allowOnlyAdmin, afterPayloadValidation(updateEnquirySchema), createControllerHandlerFor(UpdateEnquiry));
 router.delete("/enquiry/:id", allowOnlyAdmin, afterParamsValidation(deleteEnquirySchema), createControllerHandlerFor(DeleteEnquiry));
+
+router.get('/enquiry/:id', allowOnlyAdmin, afterParamsValidation(getEnquiryByIdSchema), createControllerHandlerFor(GetEnquiryById));
+router.post('/enquiry/list', allowOnlyAdmin, afterPayloadValidation(getEnquiresSchema), createControllerHandlerFor(GetEnquiries));
 
 
 export default router;
