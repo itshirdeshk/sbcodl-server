@@ -24,8 +24,8 @@ export const UpdateAdmission = async (
     if (documentType && req.file === undefined && req.file!.buffer === undefined) {
         throw new Error(
             404,
-            GeneralErrorCodes.UNKNOWN,
-            R.ERROR_UNKNOWN,
+            GeneralErrorCodes.FILE_NOT_FOUND,
+            R.ERROR_FILE_NOT_FOUND,
         );
     }
 

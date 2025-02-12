@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "npx prisma db push && npx tsx index.ts",
-    "devstart": "npx tsx watch index.ts"
+    "start": "node dist/index.js",
+    "devstart": "npx tsx watch index.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",

@@ -18,8 +18,8 @@ export const CreateInstitute = async (
     if (!req.file || !req.file.buffer) {
         throw new Error(
             404,
-            GeneralErrorCodes.UNKNOWN,
-            R.ERROR_UNKNOWN,
+            GeneralErrorCodes.FILE_NOT_FOUND,
+            R.ERROR_FILE_NOT_FOUND,
         );
     }
 

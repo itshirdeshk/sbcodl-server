@@ -20,9 +20,7 @@ import { GetStudentById } from "../controller/common/student/GetStudentById";
 import { GetStudents } from "../controller/common/student/GetStudents";
 import { getStudentByIdSchema } from "../validation/common/student/GetStudentById";
 import { getStudentsSchema } from "../validation/common/student/GetStudents";
-import { GenerateInstituteCertificate } from "../controller/common/institute/GenerateInstituteCertificate";
 import { GenerateInstituteRegistrationNumber } from "../controller/common/institute/GenerateInstituteRegistrationNumber";
-import { generateInstituteCertificateSchema } from "../validation/common/institute/GenerateInstituteCertificate";
 import { generateInstituteRegistrationNumberSchema } from "../validation/common/institute/GenerateInstituteRegistrationNumber";
 import { GetInstituteById } from "../controller/common/institute/GetInstituteById";
 import { GetInstitutes } from "../controller/common/institute/GetInstitutes";
@@ -57,7 +55,6 @@ router.post("/institute", instituteFileUploadHandler.single('image'), afterPaylo
 router.put("/institute", instituteFileUploadHandler.single('image'), allowOnlyInstitute, afterPayloadValidation(updateInsituteSchema), createControllerHandlerFor(UpdateInstitute));
 
 router.get("/institute/registration-number/:applicationNumber", allowOnlyInstitute, afterParamsValidation(generateInstituteRegistrationNumberSchema), createControllerHandlerFor(GenerateInstituteRegistrationNumber));
-router.get("/institute/certificate/:registrationNumber", allowOnlyInstitute, afterParamsValidation(generateInstituteCertificateSchema), createControllerHandlerFor(GenerateInstituteCertificate));
 
 router.get("/institute/:id", allowOnlyInstitute, afterParamsValidation(getInstituteByIdSchema), createControllerHandlerFor(GetInstituteById));
 router.post("/institute/list", allowOnlyInstitute, afterPayloadValidation(getInstitutesSchema), createControllerHandlerFor(GetInstitutes));

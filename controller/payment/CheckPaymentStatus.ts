@@ -31,8 +31,8 @@ export const CheckPaymentStatus = async (req: Request, res: Response) => {
     if (!payment) {
         throw new Error(
             404,
-            GeneralErrorCodes.UNKNOWN,
-            R.ERROR_UNKNOWN
+            GeneralErrorCodes.PAYMENT_NOT_FOUND,
+            R.ERROR_PAYMENT_NOT_FOUND,
         );
     }
 

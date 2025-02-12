@@ -19,6 +19,8 @@ export const GeneralErrorCodes = {
     FILE_NOT_FOUND: "file-not-found",
     PAYMENT_FAILED: "payment-failed",
     PAYMENT_PENDING: "payment-pending",
+    INSTITUTE_NOT_FOUND: "institute-not-found",
+    PAYMENT_NOT_FOUND: "payment-not-found",
 };
 
 export const PrismaErrorMessageMapping = {

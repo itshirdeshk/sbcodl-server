@@ -4,7 +4,6 @@ import { GeneralErrorCodes } from "../../../constants/ErrorCodes";
 import { R } from "../../../constants/Resource";
 import prisma from "../../../prisma/prismaInstance";
 import sftpService from "../../../services/sftpService";
-import { generateApplicationNumber } from "../../../utils/generateNumbers";
 import { UpdateInstituteRequestSchema } from "../../../validation/common/institute/UpdateInstitute";
 
 export const UpdateInstitute = async (
@@ -27,8 +26,8 @@ export const UpdateInstitute = async (
     if (!institute) {
         throw new Error(
             404,
-            GeneralErrorCodes.UNKNOWN,
-            R.ERROR_UNKNOWN,
+            GeneralErrorCodes.INSTITUTE_NOT_FOUND,
+            R.ERROR_INSTITUTE_NOT_FOUND,
         );
     }
 
@@ -36,7 +35,7 @@ export const UpdateInstitute = async (
         throw new Error(
             404,
             GeneralErrorCodes.FILE_NOT_FOUND,
-            R.ERROR_UNKNOWN,
+            R.ERROR_FILE_NOT_FOUND,
         );
     }
 

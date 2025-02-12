@@ -49,8 +49,6 @@ import { UpdateEnquiry } from "../controller/common/enquiry/UpdateEnquiry";
 import { deleteEnquirySchema } from "../validation/common/enquiry/DeleteEnquiry";
 import { DeleteEnquiry } from "../controller/common/enquiry/DeleteEnquiry";
 import { generateInstituteRegistrationNumberSchema } from "../validation/common/institute/GenerateInstituteRegistrationNumber";
-import { GenerateInstituteCertificate } from "../controller/common/institute/GenerateInstituteCertificate";
-import { generateInstituteCertificateSchema } from "../validation/common/institute/GenerateInstituteCertificate";
 import { GenerateInstituteRegistrationNumber } from "../controller/common/institute/GenerateInstituteRegistrationNumber";
 import { getCourseByIdSchema } from "../validation/common/course/GetCourseById";
 import { GetCourseById } from "../controller/common/course/GetCourseById";
@@ -106,7 +104,6 @@ router.post("/institute", instituteFileUploadHandler.single('image'), allowOnlyA
 router.put("/institute", instituteFileUploadHandler.single('image'), allowOnlyAdmin, afterPayloadValidation(updateInsituteSchema), createControllerHandlerFor(UpdateInstitute));
 router.delete("/institute/:id", allowOnlyAdmin, afterParamsValidation(deleteInstituteSchema), createControllerHandlerFor(DeleteInstitute));
 router.get("/institute/registration-number/:applicationNumber", allowOnlyAdmin, afterParamsValidation(generateInstituteRegistrationNumberSchema), createControllerHandlerFor(GenerateInstituteRegistrationNumber));
-router.get("/institute/certificate/:registrationNumber", allowOnlyAdmin, afterParamsValidation(generateInstituteCertificateSchema), createControllerHandlerFor(GenerateInstituteCertificate));
 
 router.get("/institute/:id", allowOnlyAdmin, afterParamsValidation(getInstituteByIdSchema), createControllerHandlerFor(GetInstituteById));
 router.post("/institute/list", allowOnlyAdmin, afterPayloadValidation(getInstitutesSchema), createControllerHandlerFor(GetInstitutes));
