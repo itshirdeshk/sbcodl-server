@@ -13,6 +13,9 @@ RUN npm install
 # Copy source code
 COPY . .
 
+# Generate Prisma Client
+RUN npx prisma generate
+
 # Build TypeScript code
 RUN npm run build
 
@@ -20,4 +23,4 @@ RUN npm run build
 EXPOSE 8080
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
