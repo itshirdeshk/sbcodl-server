@@ -25,7 +25,7 @@ export const CreateInstitute = async (
 
     await sftpService.connect();
 
-    const remotePath = `/var/www/documents/institutes/${Date.now()}-${req.file.originalname}`;
+    const remotePath = `/var/sbcodl/documents/institutes/${Date.now()}-${req.file.originalname}`;
 
     // Upload the image to VPS
     await sftpService.uploadFile(req.file.buffer, remotePath);

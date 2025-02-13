@@ -43,7 +43,7 @@ export const CreateAdmission = async (
 
     await sftpService.connect();
 
-    const remotePath = `/var/www/documents/students/${Date.now()}-${req.file.originalname}`;
+    const remotePath = `/var/sbcodl/documents/students/${Date.now()}-${req.file.originalname}`;
 
     // Upload the image to VPS
     await sftpService.uploadFile(req.file.buffer, remotePath);
