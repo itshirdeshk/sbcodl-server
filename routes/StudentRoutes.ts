@@ -11,7 +11,7 @@ import { allowOnlyInstitute, allowOnlyStudent } from "../middlewares/Authenticat
 import { updateAdmissionSchema } from "../validation/common/admission/UpdateAdmission";
 import { UpdateAdmission } from "../controller/common/admission/UpdateAdmission";
 import { GenerateEnrollmentNumber } from "../controller/common/admission/GenerateEnrollmentNumber";
-import { GetStudentById } from "../controller/common/student/GetStudentById";
+import { GetStudentByIdForInstitute } from "../controller/common/student/GetStudentByIdForInstitute";
 import { GetStudents } from "../controller/common/student/GetStudents";
 import { generateEnrollmentNumberSchema } from "../validation/common/admission/GenerateEnrollmentNumber";
 import { getStudentByIdSchema } from "../validation/common/student/GetStudentById";
@@ -32,6 +32,7 @@ import { getResultByIdSchema } from "../validation/common/result/GetResultById";
 import { getResultsSchema } from "../validation/common/result/GetResults";
 import { getSubjectByIdSchema } from "../validation/common/subject/GetSubjectById";
 import { getSubjectsSchema } from "../validation/common/subject/GetSubjects";
+import { GetStudentByIdForStudent } from "../controller/common/student/GetStudentByIdForStudent";
 
 export const router = Router();
 
@@ -45,7 +46,7 @@ router.put("/admission", admissionFileUploadHandler.single("image"), allowOnlySt
 router.get("/admission/enrollment-number/:applicationNumber", allowOnlyStudent, afterParamsValidation(generateEnrollmentNumberSchema), createControllerHandlerFor(GenerateEnrollmentNumber));
 
 // Student
-router.get("/student/:id", allowOnlyStudent, afterParamsValidation(getStudentByIdSchema), createControllerHandlerFor(GetStudentById));
+router.get("/student/:id", allowOnlyStudent, afterParamsValidation(getStudentByIdSchema), createControllerHandlerFor(GetStudentByIdForStudent));
 router.post("/student/list", allowOnlyStudent, afterPayloadValidation(getStudentsSchema), createControllerHandlerFor(GetStudents));
 
 // Result

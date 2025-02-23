@@ -4,7 +4,7 @@ import path from "path";
 const admissionFileUploadOptions: Options = {
     storage: multer.memoryStorage(),
     limits: {
-        fileSize: 50 * 1024 * 1024, // limit file size to 50KB
+        fileSize: 50 * 1024 * 1024 , // limit file size to 50GB
     },
     fileFilter(req, file, callback) {
         var filetypes = /jpeg|jpg|png/;
@@ -21,7 +21,7 @@ const admissionFileUploadOptions: Options = {
 const instituteFileUploadOptions: Options = {
     storage: multer.memoryStorage(),
     limits: {
-        fileSize: 50 * 1024 * 1024, // limit file size to 50KB
+        fileSize: 50 * 1024 * 1024 , // limit file size to 50kb
     },
     fileFilter(req, file, callback) {
         var filetypes = /jpeg|jpg|png/;
