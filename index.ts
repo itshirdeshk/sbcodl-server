@@ -29,7 +29,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use("/api/admin", adminRoutes);
-app.use("/api/institue", instituteRoutes);
+app.use("/api/institute", instituteRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/payment", PaymentRoutes);
 

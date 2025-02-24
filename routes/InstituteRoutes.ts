@@ -16,7 +16,7 @@ import { updateInsituteSchema } from "../validation/common/institute/UpdateInsti
 import { UpdateInstitute } from "../controller/common/institute/UpdateInstitute";
 import { GenerateEnrollmentNumber } from "../controller/common/admission/GenerateEnrollmentNumber";
 import { generateEnrollmentNumberSchema } from "../validation/common/admission/GenerateEnrollmentNumber";
-import { GetStudentById } from "../controller/common/student/GetStudentById";
+import { GetStudentByIdForInstitute } from "../controller/common/student/GetStudentByIdForInstitute";
 import { GetStudents } from "../controller/common/student/GetStudents";
 import { getStudentByIdSchema } from "../validation/common/student/GetStudentById";
 import { getStudentsSchema } from "../validation/common/student/GetStudents";
@@ -47,8 +47,8 @@ router.put("/admission", admissionFileUploadHandler.single("image"), allowOnlyIn
 router.get("/admission/enrollment-number/:applicationNumber", allowOnlyInstitute, afterParamsValidation(generateEnrollmentNumberSchema), createControllerHandlerFor(GenerateEnrollmentNumber));
 
 // Student
-router.get("/student/:id", allowOnlyInstitute, afterParamsValidation(getStudentByIdSchema), createControllerHandlerFor(GetStudentById));
-router.post("/student/list", allowOnlyInstitute, afterPayloadValidation(getStudentsSchema), createControllerHandlerFor(GetStudents));
+router.get("/student/:id", allowOnlyInstitute, afterParamsValidation(getStudentByIdSchema), createControllerHandlerFor(GetStudentByIdForInstitute));
+router.post("/student/list", allowOnlyInstitute, createControllerHandlerFor(GetStudents));
 
 // Instiute
 router.post("/institute", instituteFileUploadHandler.single('image'), afterPayloadValidation(createInsituteSchema), createControllerHandlerFor(CreateInstitute));

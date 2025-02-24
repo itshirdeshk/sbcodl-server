@@ -27,28 +27,28 @@ export const InstituteLogin = async (req: ValidatedRequest<InstituteLoginRequest
         );
     }
 
-    if (applicationNumber && institute.paymentStatus === 'FAILED') {
-        return new Error(
-            422,
-            GeneralErrorCodes.PAYMENT_FAILED,
-            R.ERROR_PAYMENT_FAILED
-        );
-    }
+    // if (applicationNumber && institute.paymentStatus === 'FAILED') {
+    //     return new Error(
+    //         422,
+    //         GeneralErrorCodes.PAYMENT_FAILED,
+    //         R.ERROR_PAYMENT_FAILED
+    //     );
+    // }
 
-    if (applicationNumber && institute.paymentStatus === 'PENDING') {
-        return new Error(
-            422,
-            GeneralErrorCodes.PAYMENT_PENDING,
-            R.ERROR_PAYMENT_PENDING
-        );
-    }
+    // if (applicationNumber && institute.paymentStatus === 'PENDING') {
+    //     return new Error(
+    //         422,
+    //         GeneralErrorCodes.PAYMENT_PENDING,
+    //         R.ERROR_PAYMENT_PENDING
+    //     );
+    // }
 
     const accessToken = jwt.sign(
         {
             uid: institute.id,
         },
         process.env.ACCESS_TOKEN_SECRET as string,
-        { expiresIn: "1h" }
+        { expiresIn: "7d" }
     );
 
     const refreshToken = jwt.sign(

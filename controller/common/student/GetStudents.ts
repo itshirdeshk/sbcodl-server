@@ -2,14 +2,25 @@ import { ValidatedRequest } from "express-joi-validation";
 import prisma from "../../../prisma/prismaInstance";
 import { GetStudentsRequestSchema } from "../../../validation/common/student/GetStudents";
 
-export const GetStudents = async (req: ValidatedRequest<GetStudentsRequestSchema>) => {
-    const { admissionType, applicationNumber, batch, category, courseId, email, enrollmentNumber, gender, instituteId, paymentStatus, phoneNumber, limit, skip } = req.body;
+    interface AuthenticatedRequest extends ValidatedRequest<GetStudentsRequestSchema>{
+        user: { id: string; }
+    }
 
+export const GetStudents = async (req: AuthenticatedRequest) => {
+ 
+    const instituteId = req.user.id;
+    
     const students = await prisma.student.findMany({
-        where: { admissionType, applicationNumber, batch, category, courseId, email, enrollmentNumber, gender, instituteId, paymentStatus, phoneNumber },
-        skip: skip,
-        take: limit,
+        where: { instituteId },
+        include: {
+            permanentAddress: true,
+            correspondenceAddress: true,
+            educationalQualifications: true,
+            lastPassedExam: true,
+            results: true,
+            documents: true,
+            payments: true,
+        },
     });
-
     return students;
 }

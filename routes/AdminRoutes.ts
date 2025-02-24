@@ -71,7 +71,7 @@ import { getResultsSchema } from "../validation/common/result/GetResults";
 import { GetResultById } from "../controller/common/result/GetResultById";
 import { GetResults } from "../controller/common/result/GetResults";
 import { getStudentByIdSchema } from "../validation/common/student/GetStudentById";
-import { GetStudentById } from "../controller/common/student/GetStudentById";
+import { GetStudentById } from "../controller/common/student/GetStudentByIdForInstitute";
 import { getStudentsSchema } from "../validation/common/student/GetStudents";
 import { GetStudents } from "../controller/common/student/GetStudents";
 import { generateEnrollmentNumberSchema } from "../validation/common/admission/GenerateEnrollmentNumber";

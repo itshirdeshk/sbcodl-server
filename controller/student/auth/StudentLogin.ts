@@ -27,21 +27,21 @@ export const StudentLogin = async (req: ValidatedRequest<StudentLoginRequestSche
         );
     }
 
-    if(applicationNumber && student.paymentStatus === 'FAILED') {
-        return new Error(
-            422,
-            GeneralErrorCodes.PAYMENT_FAILED,
-            R.ERROR_PAYMENT_FAILED
-        );
-    }
+    // if(applicationNumber && student.paymentStatus === 'FAILED') {
+    //     return new Error(
+    //         422,
+    //         GeneralErrorCodes.PAYMENT_FAILED,
+    //         R.ERROR_PAYMENT_FAILED
+    //     );
+    // }
 
-    if(applicationNumber && student.paymentStatus === 'PENDING') {
-        return new Error(
-            422,
-            GeneralErrorCodes.PAYMENT_PENDING,
-            R.ERROR_PAYMENT_PENDING
-        );
-    }
+    // if(applicationNumber && student.paymentStatus === 'PENDING') {
+    //     return new Error(
+    //         422,
+    //         GeneralErrorCodes.PAYMENT_PENDING,
+    //         R.ERROR_PAYMENT_PENDING
+    //     );
+    // }
 
     const accessToken = jwt.sign(
         {
