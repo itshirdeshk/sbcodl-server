@@ -9,6 +9,7 @@ export const GetInstituteById = async (req: ValidatedRequest<GetInstituteByIdReq
         where: { id: id },
         include: {
             documents: true,
+            payments: true,
         }
     });
 
