@@ -71,7 +71,6 @@ import { getResultsSchema } from "../validation/common/result/GetResults";
 import { GetResultById } from "../controller/common/result/GetResultById";
 import { GetResults } from "../controller/common/result/GetResults";
 import { getStudentByIdSchema } from "../validation/common/student/GetStudentById";
-import { GetStudentById } from "../controller/common/student/GetStudentByIdForInstitute";
 import { getStudentsSchema } from "../validation/common/student/GetStudents";
 import { GetStudents } from "../controller/common/student/GetStudents";
 import { generateEnrollmentNumberSchema } from "../validation/common/admission/GenerateEnrollmentNumber";
@@ -80,6 +79,7 @@ import { getInstituteByIdSchema } from "../validation/common/institute/GetInstit
 import { getInstitutesSchema } from "../validation/common/institute/GetInstitutes";
 import { GetInstituteById } from "../controller/common/institute/GetInstituteById";
 import { GetInstitutes } from "../controller/common/institute/GetInstitutes";
+import { GetStudentByIdForStudent } from "../controller/common/student/GetStudentByIdForStudent";
 
 
 export const router = Router();
@@ -96,7 +96,7 @@ router.delete("/admission/:id", allowOnlyAdmin, afterParamsValidation(deleteAdmi
 router.get("/admission/enrollment-number/:applicationNumber", allowOnlyAdmin, afterParamsValidation(generateEnrollmentNumberSchema), createControllerHandlerFor(GenerateEnrollmentNumber));
 
 // Student
-router.get("/student/:id", allowOnlyAdmin, afterParamsValidation(getStudentByIdSchema), createControllerHandlerFor(GetStudentById));
+router.get("/student/:id", allowOnlyAdmin, afterParamsValidation(getStudentByIdSchema), createControllerHandlerFor(GetStudentByIdForStudent));
 router.post("/student/list", allowOnlyAdmin, afterPayloadValidation(getStudentsSchema), createControllerHandlerFor(GetStudents));
 
 // Institute

@@ -23,7 +23,6 @@ const POLLING_INTERVALS = [
 
 export const CheckPaymentStatus = async (req: Request, res: Response) => {
     const { merchantTransactionId } = req.params;
-    // console.log(merchantTransactionId);
 
     const payment = await prisma.payment.findUnique({
         where: { merchantTransactionId },
@@ -51,9 +50,6 @@ export const CheckPaymentStatus = async (req: Request, res: Response) => {
     const stringToHash = url + SALT_KEY;
     const checkSum = crypto.createHash('sha256').update(stringToHash).digest('hex') + `###${SALT_INDEX}`;
 
-    // console.log("checkSum", checkSum);
-
-
     const checkStatus = async () => {
         const response = await axios.get(`${PHONEPE_BASE_URL}${url}`, {
             headers: {
@@ -63,12 +59,8 @@ export const CheckPaymentStatus = async (req: Request, res: Response) => {
             },
         });
 
-        // console.log("response", response.data); 
-
         return response.data;
     };
-
-    // console.log("checkStatus");
 
     for (const interval of POLLING_INTERVALS) {
         const statusResponse = await checkStatus();

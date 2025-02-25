@@ -25,6 +25,5 @@ export const GetStudentByIdForInstitute = async (req: AuthenticatedRequest) => {
             lastPassedExam: true,
         },
     });
-    console.log(student);
     return student;
 }

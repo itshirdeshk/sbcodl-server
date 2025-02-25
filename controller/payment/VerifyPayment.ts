@@ -10,9 +10,6 @@ const SALT_INDEX = process.env.PHONEPE_SALT_INDEX;
 
 export const VerifyPayment = async (req: Request, res: Response) => {
     const { response } = req.body;
-
-    console.log(req.headers);
-    console.log(req.headers['x-verify']);
     
 
     // Decode the base64 response
@@ -23,8 +20,6 @@ export const VerifyPayment = async (req: Request, res: Response) => {
     const stringToHash = response + SALT_KEY;
     const hash = crypto.createHash('sha256').update(stringToHash).digest('hex');
     const expectedChecksum = hash + "###" + SALT_INDEX;
-
-    console.log(expectedChecksum);
     
 
     if (req.headers['x-verify'] !== expectedChecksum) {

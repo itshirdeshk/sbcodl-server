@@ -5,7 +5,6 @@ import { GetStudentByIdRequestSchema } from "../../../validation/common/student/
 
 export const GetStudentByIdForStudent = async (req: ValidatedRequest<GetStudentByIdRequestSchema> ) => {
     const { id } = req.params;
-    console.log(id);
     const student = await prisma.student.findUnique({
         where: { id: id },
         include: {
@@ -21,6 +20,5 @@ export const GetStudentByIdForStudent = async (req: ValidatedRequest<GetStudentB
             lastPassedExam: true,
         },
     });
-    console.log(student);
     return student;
 }

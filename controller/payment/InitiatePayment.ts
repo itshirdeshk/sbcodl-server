@@ -62,10 +62,6 @@ export const InitiatePayment = async (
         }
     );
 
-    console.log(checksum);
-    console.log(merchantTransactionId);
-
-
     if (response.data.success) {
         const payment = await prisma.payment.create({
             data: {
