@@ -6,6 +6,10 @@ import prisma from "../../../prisma/prismaInstance";
 import { CreateAdmissionRequestSchema } from "../../../validation/common/admission/CreateAdmission";
 import sftpService from "../../../services/sftpService";
 import { generateApplicationNumber } from "../../../utils/generateNumbers";
+import path from "path";
+import fs from "fs";
+import Handlebars from "handlebars";
+import transporter from "../../../config/emailConfig";
 
 export const CreateAdmission = async (
     req: ValidatedRequest<CreateAdmissionRequestSchema>,
@@ -52,6 +56,18 @@ export const CreateAdmission = async (
     const imageUrl = `http://${process.env.VPS_HOST}/uploads/students/${remotePath.split('/').pop()}`;
 
     const applicationNumber = generateApplicationNumber();
+
+    const sourcePath = path.join(process.cwd(), 'emailTemplate', 'studentRegister.html');
+    const source = fs.readFileSync(sourcePath, 'utf8');
+    const template = Handlebars.compile(source);
+    const html = template({ applicationNumber: applicationNumber });
+
+    await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: "Student Registration Successful",
+        html: html
+    });
 
     const student = await prisma.student.create({
         data: {
