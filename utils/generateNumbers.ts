@@ -5,7 +5,7 @@ export const generateApplicationNumber = () => {
     const day = String(date.getDate()).padStart(2, "0");
     const time = date.getTime().toString().slice(-6); // Take last 6 digits
 
-    return `APP-${year}${month}${day}-${time}`;
+    return `SBCODL-${year}${month}${day}-${time}`;
 };
 
 export const generateEnrollmentNumber = () => {
