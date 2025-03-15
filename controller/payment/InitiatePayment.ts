@@ -14,9 +14,9 @@ export const InitiatePayment = async (
     req: ValidatedRequest<InitiatePaymentRequestSchema>,
 ) => {
     const {
+        name,
+        number,
         amount,
-        redirectUrl,
-        callbackUrl,
         paymentType,
         instituteId,
         studentId,
@@ -25,16 +25,17 @@ export const InitiatePayment = async (
     // Payment initiation logic
     const merchantUserId = paymentType === PaymentType.STUDENT ? `STUDENT-${studentId}` : `INSTITUTE-${instituteId}`;
 
-    const merchantTransactionId = `TXN-${crypto.randomBytes(16).toString('hex')}`;
+    const merchantTransactionId = paymentType === PaymentType.STUDENT ? `TXN-S-${crypto.randomBytes(16).toString('hex')}` : `TXN-I-${crypto.randomBytes(16).toString('hex')}`;
 
     const payload = {
         merchantId: MERCHANT_ID,
-        merchantUserId: merchantUserId,
         merchantTransactionId: merchantTransactionId,
         amount: amount * 100, // Convert to paise
-        redirectUrl: redirectUrl,
-        callbackUrl: callbackUrl,
-        redirectMode: "REDIRECT",
+        redirectUrl: `https://sbiea.co.in/api/api/payemnt/verify-payment?id=${merchantTransactionId}`,
+        // redirectUrl: `http://localhost:8080/api/payment/verify-payment?id=${merchantTransactionId}`,
+        redirectMode: "POST",
+        name: "SBCODL",
+        mobileNumber: "7252995449",
         paymentInstrument: {
             type: "PAY_PAGE"
         }
@@ -51,16 +52,22 @@ export const InitiatePayment = async (
     // Construct the final checksum by appending "###" and the salt index
     const checksum = hash + "###" + SALT_INDEX;
 
-    const response = await axios.post(
-        `${PHONEPE_BASE_URL}/pg/v1/pay`,
-        { request: base64EncodedPayload },
-        {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-VERIFY': checksum
-            }
+    const PROD_URL = `${PHONEPE_BASE_URL}/pg/v1/pay`;
+
+    const options = {
+        method: 'POST',
+        url: PROD_URL,
+        headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-VERIFY': checksum
+        },
+        data: {
+            request: base64EncodedPayload
         }
-    );
+    }
+
+    const response = await axios.request(options);
 
     if (response.data.success) {
         const payment = await prisma.payment.create({
