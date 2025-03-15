@@ -15,8 +15,8 @@ export interface InitiatePaymentRequestSchema
 }
 
 export const initiatePaymentSchema = Joi.object({
-    name: Joi.string().required(),
-    number: Joi.string().required(),
+    name: Joi.string(),
+    number: Joi.string(),
     amount: Joi.number().required(),
     paymentType: Joi.string().valid(...Object.values(PaymentType)).required().messages({
         'any.only': '{{#label}} must be one of: {{#valids}}',
