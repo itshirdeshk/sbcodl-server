@@ -11,6 +11,9 @@ export interface InitiatePaymentRequestSchema
         paymentType: PaymentType;
         studentId: string;
         instituteId: string;
+        merchantTransactionId: string;
+        redirectUrl: string;
+        callbackUrl: string;
     };
 }
 
@@ -18,6 +21,9 @@ export const initiatePaymentSchema = Joi.object({
     name: Joi.string(),
     number: Joi.string(),
     amount: Joi.number().required(),
+    merchantTransactionId: Joi.string().required(),
+    redirectUrl: Joi.string().required(),
+    callbackUrl: Joi.string().required(),
     paymentType: Joi.string().valid(...Object.values(PaymentType)).required().messages({
         'any.only': '{{#label}} must be one of: {{#valids}}',
     }),
