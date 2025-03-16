@@ -117,7 +117,9 @@ export const InitiatePayment = async (
     
 
     if (response.data.success) {
-        return res.redirect(response.data.data?.instrumentResponse?.redirectInfo?.url);
+        console.log(response.data.data?.instrumentResponse?.redirectInfo?.url);
+        
+        res.redirect(response.data.data?.instrumentResponse?.redirectInfo?.url);
     } else {
         return res.status(400).json({ "message": "Payment initiation failed" });
     }
