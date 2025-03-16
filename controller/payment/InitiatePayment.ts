@@ -113,6 +113,9 @@ export const InitiatePayment = async (
         }
     }
 
+    console.log(response.data);
+    
+
     if (response.data.success) {
         return res.redirect(response.data.data?.instrumentResponse?.redirectInfo?.url);
     } else {
