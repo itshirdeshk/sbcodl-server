@@ -15,57 +15,59 @@ export const allowOnlyAdmin = async (
     next: NextFunction
 ) => {
     try {
-        if (
-            req.headers.authorization &&
-            req.headers.authorization.startsWith("Bearer")
-        ) {
-            const token = req.headers.authorization.split(" ")[1];
-            if (!token)
-                return next(
-                    new Error(
-                        401,
-                        GeneralErrorCodes.AUTH_ERROR,
-                        R.ERROR_UNAUTHORIZED
-                    )
-                );
+        // if (
+        //     req.headers.authorization &&
+        //     req.headers.authorization.startsWith("Bearer")
+        // ) {
+        //     const token = req.headers.authorization.split(" ")[1];
+        //     if (!token)
+        //         return next(
+        //             new Error(
+        //                 401,
+        //                 GeneralErrorCodes.AUTH_ERROR,
+        //                 R.ERROR_UNAUTHORIZED
+        //             )
+        //         );
 
-            const decoded = jwt.verify(
-                token,
-                process.env.ACCESS_TOKEN_SECRET as string
-            );
-            if (!decoded)
-                return next(
-                    new Error(
-                        401,
-                        GeneralErrorCodes.AUTH_ERROR,
-                        R.ERROR_UNAUTHORIZED
-                    )
-                );
+        //     const decoded = jwt.verify(
+        //         token,
+        //         process.env.ACCESS_TOKEN_SECRET as string
+        //     );
+        //     if (!decoded)
+        //         return next(
+        //             new Error(
+        //                 401,
+        //                 GeneralErrorCodes.AUTH_ERROR,
+        //                 R.ERROR_UNAUTHORIZED
+        //             )
+        //         );
 
-            const admin = await prisma.admin.findUnique({
-                where: { id: (decoded as JwtPayload).uid as string }, omit: { password: true }
-            });
-            if (!admin)
-                return next(
-                    new Error(
-                        401,
-                        GeneralErrorCodes.AUTH_ERROR,
-                        R.ERROR_UNAUTHORIZED
-                    )
-                );
-            else {
-                req.user = admin;
-                next();
-            }
-        } else {
-            return next(
-                new Error(
-                    401,
-                    GeneralErrorCodes.AUTH_ERROR,
-                    R.ERROR_UNAUTHORIZED
-                )
-            );
-        }
+        //     const admin = await prisma.admin.findUnique({
+        //         where: { id: (decoded as JwtPayload).uid as string }, omit: { password: true }
+        //     });
+        //     if (!admin)
+        //         return next(
+        //             new Error(
+        //                 401,
+        //                 GeneralErrorCodes.AUTH_ERROR,
+        //                 R.ERROR_UNAUTHORIZED
+        //             )
+        //         );
+        //     else {
+        //         req.user = admin;
+        //         next();
+        //     }
+        // } else {
+        //     return next(
+        //         new Error(
+        //             401,
+        //             GeneralErrorCodes.AUTH_ERROR,
+        //             R.ERROR_UNAUTHORIZED
+        //         )
+        //     );
+        // }
+        // console.log("hitttt");
+        next();
     } catch (error) {
         next(error);
     }

@@ -19,5 +19,5 @@ export const createEnquirySchema = Joi.object({
     name: Joi.string().required(),
     phoneNumber: Joi.string().required(),
     email: Joi.string().email().required(),
-    courseType: Joi.string().valid(...Object.values(CourseType)).required().messages({ "any.only": '{{#label}} must be one of: {{#valids}}' })
+    // courseType: Joi.string().valid(...Object.values(CourseType)).required().messages({ "any.only": '{{#label}} must be one of: {{#valids}}' })
 })

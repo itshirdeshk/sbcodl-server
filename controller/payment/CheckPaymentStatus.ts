@@ -23,7 +23,6 @@ const POLLING_INTERVALS = [
 
 export const CheckPaymentStatus = async (req: Request, res: Response) => {
     const { merchantTransactionId } = req.params;
-
     const payment = await prisma.payment.findUnique({
         where: { merchantTransactionId },
     });
@@ -58,7 +57,6 @@ export const CheckPaymentStatus = async (req: Request, res: Response) => {
                 'X-MERCHANT-ID': MERCHANT_ID,
             },
         });
-
         return response.data;
     };
 

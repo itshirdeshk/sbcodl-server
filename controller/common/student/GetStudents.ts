@@ -8,11 +8,12 @@ import { GetStudentsRequestSchema } from "../../../validation/common/student/Get
 
 export const GetStudents = async (req: AuthenticatedRequest) => {
  
-    const instituteId = req.user.id;
+   const { id, limit, skip } = req.body;
     
     const students = await prisma.student.findMany({
-        where: { instituteId },
+        where: { id: id },
         include: {
+            institute: true,
             permanentAddress: true,
             correspondenceAddress: true,
             educationalQualifications: true,
@@ -21,6 +22,8 @@ export const GetStudents = async (req: AuthenticatedRequest) => {
             documents: true,
             payments: true,
         },
+        take: limit,
+        skip: skip
     });
     return students;
 }

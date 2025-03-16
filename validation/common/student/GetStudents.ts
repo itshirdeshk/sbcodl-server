@@ -5,7 +5,7 @@ import Joi from "joi";
 export interface GetStudentsRequestSchema
     extends ValidatedRequestSchema {
     [ContainerTypes.Body]: {
-        admissionType: AdmissionType;
+        id: string;
         category: StudentCategory;
         gender: Gender;
         courseId: string;
@@ -34,6 +34,7 @@ export const getStudentsSchema = Joi.object({
     email: Joi.string().email(),
     instituteId: Joi.string(),
     paymentStatus: Joi.string().valid(...Object.values(PaymentStatus)),
+    id: Joi.string(),
 
     skip: Joi.number().required(),
     limit: Joi.number().required(),
