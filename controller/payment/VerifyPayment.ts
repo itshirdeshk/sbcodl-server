@@ -6,13 +6,14 @@ import { R } from "../../constants/Resource";
 import { ValidatedRequest } from "express-joi-validation";
 import { VerifyPaymentRequestSchema } from "../../validation/payment/verifyPayment";
 import axios from "axios";
+import { Response } from "express";
 
 const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL;
 const MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID;
 const SALT_KEY = process.env.PHONEPE_SALT_KEY;
 const SALT_INDEX = process.env.PHONEPE_SALT_INDEX;
 
-export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSchema>) => {
+export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSchema>, res: Response) => {
     const merchantTransactionId = req.query.id
 
 
@@ -34,6 +35,12 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
     const response = await axios.request(options);
 
     console.log(response.data);
+
+    if (response.status === 200) {
+        return res.send("Payment Done");
+    } else {
+        return res.send("Payment Failed");
+    }
 
 
     // if (parsedResponse.code === 'PAYMENT_SUCCESS') {
