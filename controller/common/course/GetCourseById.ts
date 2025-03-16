@@ -6,7 +6,10 @@ export const GetCourseById = async (req: ValidatedRequest<GetCourseByIdRequestSc
     const { id } = req.params;
 
     const course = await prisma.course.findUnique({
-        where: { id: id }
+        where: { id: id },
+        include: {
+            subjects: true
+        }
     });
 
     return course;
