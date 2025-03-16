@@ -5,17 +5,23 @@ import Joi from "joi";
 export interface InitiatePaymentRequestSchema
     extends ValidatedRequestSchema {
     [ContainerTypes.Body]: {
+        name: string;
+        number: string;
         amount: number;
-        redirectUrl: string;
-        callbackUrl: string;
         paymentType: PaymentType;
         studentId: string;
         instituteId: string;
+        merchantTransactionId: string;
+        redirectUrl: string;
+        callbackUrl: string;
     };
 }
 
 export const initiatePaymentSchema = Joi.object({
+    name: Joi.string(),
+    number: Joi.string(),
     amount: Joi.number().required(),
+    merchantTransactionId: Joi.string().required(),
     redirectUrl: Joi.string().required(),
     callbackUrl: Joi.string().required(),
     paymentType: Joi.string().valid(...Object.values(PaymentType)).required().messages({

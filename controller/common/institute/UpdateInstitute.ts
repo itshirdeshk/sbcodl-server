@@ -48,7 +48,7 @@ export const UpdateInstitute = async (
         await sftpService.uploadFile(req.file!.buffer, remotePath);
         await sftpService.disconnect();
 
-        const imageUrl = `http://${process.env.VPS_HOST}/uploads/institutes/${remotePath.split('/').pop()}`;
+        const imageUrl = `https://${process.env.VPS_HOST_URL}/uploads/institutes/${remotePath.split('/').pop()}`;
 
         if (documentId) {
             await prisma.institute.update({
@@ -96,7 +96,7 @@ export const UpdateInstitute = async (
         await sftpService.uploadFile(req.file.buffer, remotePath);
         await sftpService.disconnect();
 
-        const imageUrl = `http://${process.env.VPS_HOST}/uploads/institutes/${remotePath.split('/').pop()}`;
+        const imageUrl = `https://${process.env.VPS_HOST_URL}/uploads/institutes/${remotePath.split('/').pop()}`;
 
         const institute = await prisma.institute.update({
             where: {

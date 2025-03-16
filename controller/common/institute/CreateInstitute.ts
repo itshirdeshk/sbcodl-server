@@ -35,7 +35,7 @@ export const CreateInstitute = async (
     await sftpService.uploadFile(req.file.buffer, remotePath);
     await sftpService.disconnect();
 
-    const imageUrl = `http://${process.env.VPS_HOST}/uploads/institutes/${remotePath.split('/').pop()}`;
+    const imageUrl = `https://${process.env.VPS_HOST_URL}/uploads/institutes/${remotePath.split('/').pop()}`;
 
     const applicationNumber = generateApplicationNumber();
 
