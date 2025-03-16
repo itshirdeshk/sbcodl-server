@@ -113,21 +113,21 @@ export const InitiatePayment = async (
         }
     }
 
-    console.log(response.data);
+    // console.log(response.data);
     
 
-    if (response.data.success) {
-        console.log(response.data.data?.instrumentResponse?.redirectInfo?.url);
+    // if (response.data.success) {
+    //     console.log(response.data.data?.instrumentResponse?.redirectInfo?.url);
         
-        return res.redirect(response.data.data?.instrumentResponse?.redirectInfo?.url);
-    } else {
-        return res.status(400).json({ "message": "Payment initiation failed" });
-    }
+    //     return res.redirect(response.data.data?.instrumentResponse?.redirectInfo?.url);
+    // } else {
+    //     return res.status(400).json({ "message": "Payment initiation failed" });
+    // }
 
-    // return {
-    //     success: response.data.success,
-    //     code: response.data.code,
-    //     message: response.data.message,
-    //     redirectUrl: response.data.data?.instrumentResponse?.redirectInfo?.url ?? null,
-    // };
+    return {
+        success: response.data.success,
+        code: response.data.code,
+        message: response.data.message,
+        redirectUrl: response.data.data?.instrumentResponse?.redirectInfo?.url ?? null,
+    };
 }
