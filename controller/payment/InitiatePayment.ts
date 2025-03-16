@@ -4,6 +4,7 @@ import prisma from "../../prisma/prismaInstance";
 import { PaymentType } from "@prisma/client";
 import crypto from "crypto";
 import axios from "axios";
+import { Response } from "express";
 
 const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL;
 const MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID;
@@ -12,6 +13,7 @@ const SALT_INDEX = process.env.PHONEPE_SALT_INDEX;
 
 export const InitiatePayment = async (
     req: ValidatedRequest<InitiatePaymentRequestSchema>,
+    res: Response
 ) => {
     const {
         name,
@@ -31,11 +33,11 @@ export const InitiatePayment = async (
         merchantId: MERCHANT_ID,
         merchantTransactionId: merchantTransactionId,
         amount: amount * 100, // Convert to paise
-        redirectUrl: `https://sbiea.co.in/api/api/payemnt/verify-payment?id=${merchantTransactionId}`,
+        redirectUrl: `https://sbiea.co.in/api/api/payment/verify-payment?id=${merchantTransactionId}`,
         // redirectUrl: `http://localhost:8080/api/payment/verify-payment?id=${merchantTransactionId}`,
         redirectMode: "POST",
-        name: "SBCODL",
-        mobileNumber: "7252995449",
+        name: name,
+        mobileNumber: number,
         paymentInstrument: {
             type: "PAY_PAGE"
         }
@@ -111,10 +113,12 @@ export const InitiatePayment = async (
         }
     }
 
-    return {
-        success: response.data.success,
-        code: response.data.code,
-        message: response.data.message,
-        redirectUrl: response.data.data?.instrumentResponse?.redirectInfo?.url ?? null,
-    };
+    return res.redirect(response.data.data?.instrumentResponse?.redirectInfo?.url ?? null);
+
+    // return {
+    //     success: response.data.success,
+    //     code: response.data.code,
+    //     message: response.data.message,
+    //     redirectUrl: response.data.data?.instrumentResponse?.redirectInfo?.url ?? null,
+    // };
 }
