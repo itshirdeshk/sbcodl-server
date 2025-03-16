@@ -113,7 +113,11 @@ export const InitiatePayment = async (
         }
     }
 
-    return res.redirect(response.data.data?.instrumentResponse?.redirectInfo?.url ?? null);
+    if (response.data.success) {
+        return res.redirect(response.data.data?.instrumentResponse?.redirectInfo?.url);
+    } else {
+        return res.status(400).json({ "message": "Payment initiation failed" });
+    }
 
     // return {
     //     success: response.data.success,
