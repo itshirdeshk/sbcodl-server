@@ -29,9 +29,10 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
         }
     }
 
-    const parsedResponse = await axios.request(options);
+    const response = await axios.request(options);
+    const parsedResponse = response.data;
 
-    if (parsedResponse.data.code === 'PAYMENT_SUCCESS') {
+    if (parsedResponse.code === 'PAYMENT_SUCCESS') {
         const payment = await prisma.payment.update({
             where: { merchantTransactionId: parsedResponse.data.merchantTransactionId },
             data: {
@@ -72,7 +73,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
 
             return res.redirect('https://institute.sbiea.co.in');
         }
-    } else if (parsedResponse.data.code === 'PAYMENT_PENDING') {
+    } else if (parsedResponse.code === 'PAYMENT_PENDING') {
         const payment = await prisma.payment.update({
             where: { merchantTransactionId: parsedResponse.data.merchantTransactionId },
             data: {
