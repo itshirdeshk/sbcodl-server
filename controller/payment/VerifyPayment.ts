@@ -71,7 +71,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                 },
             });
 
-            return res.redirect('https://institute.sbiea.co.in');
+            return res.redirect('https://institution.sbiea.co.in');
         }
     } else if (parsedResponse.code === 'PAYMENT_PENDING') {
         const payment = await prisma.payment.update({
@@ -110,7 +110,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                     paymentStatus: 'PENDING',
                 },
             });
-            return res.redirect('https://institute.sbiea.co.in');
+            return res.redirect('https://institution.sbiea.co.in');
         }
     } else {
         const payment = await prisma.payment.update({
@@ -148,7 +148,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                     paymentStatus: 'FAILED',
                 },
             });
-            return res.redirect('https://institute.sbiea.co.in');
+            return res.redirect('https://institution.sbiea.co.in');
         }
     }
 };
