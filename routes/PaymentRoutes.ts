@@ -4,14 +4,15 @@ import { initiatePaymentSchema } from "../validation/payment/InitiatePayment";
 import { createControllerHandlerFor } from "../middlewares/ControllerHandler";
 import { InitiatePayment } from "../controller/payment/InitiatePayment";
 import { VerifyPayment } from "../controller/payment/VerifyPayment";
-import { CheckPaymentStatus } from "../controller/payment/CheckPaymentStatus";
+import { GetPaymentDetails } from "../controller/payment/GetPaymentDetails";
 import { verifyPaymentSchema } from "../validation/payment/verifyPayment";
+import { getPaymentDetailsSchema } from "../validation/payment/getPaymentDetails";
 
 const router = Router();
 
 // Payment
 router.post("/initiate-payment", afterPayloadValidation(initiatePaymentSchema), createControllerHandlerFor(InitiatePayment));
 router.post("/verify-payment", afterQueryValidation(verifyPaymentSchema), createControllerHandlerFor(VerifyPayment));
-router.get("/check-payment-status/:merchantTransactionId", createControllerHandlerFor(CheckPaymentStatus));
+router.get("/get-payment-details", afterQueryValidation(getPaymentDetailsSchema), createControllerHandlerFor(GetPaymentDetails));
 
 export default router;

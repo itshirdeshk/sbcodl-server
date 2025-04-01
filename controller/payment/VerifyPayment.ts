@@ -11,8 +11,7 @@ const SALT_KEY = process.env.PHONEPE_SALT_KEY;
 const SALT_INDEX = process.env.PHONEPE_SALT_INDEX;
 
 export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSchema>, res: Response) => {
-    const merchantTransactionId = req.query.id
-
+    const merchantTransactionId = req.query.id;
 
     const string = `/pg/v1/status/${MERCHANT_ID}/${merchantTransactionId}` + SALT_KEY;
     const sha256 = crypto.createHash('sha256').update(string).digest('hex');
@@ -60,7 +59,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                 },
             });
 
-            return res.redirect('https://student.sbiea.co.in');
+            return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.studentId}`);
         } else if (payment.paymentType === 'INSTITUTE') {
             await prisma.institute.update({
                 where: {
@@ -71,7 +70,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                 },
             });
 
-            return res.redirect('https://institution.sbiea.co.in');
+            return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.instituteId}`);
         }
     } else if (parsedResponse.code === 'PAYMENT_PENDING') {
         const payment = await prisma.payment.update({
@@ -100,7 +99,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                     paymentStatus: 'PENDING',
                 },
             });
-            return res.redirect('https://student.sbiea.co.in');
+            return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.studentId}`);
         } else if (payment.paymentType === 'INSTITUTE') {
             await prisma.institute.update({
                 where: {
@@ -110,7 +109,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                     paymentStatus: 'PENDING',
                 },
             });
-            return res.redirect('https://institution.sbiea.co.in');
+            return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.instituteId}`);
         }
     } else {
         const payment = await prisma.payment.update({
@@ -138,7 +137,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                     paymentStatus: 'FAILED',
                 },
             });
-            return res.redirect('https://student.sbiea.co.in');
+            return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.studentId}`);
         } else if (payment.paymentType === 'INSTITUTE') {
             await prisma.institute.update({
                 where: {
@@ -148,7 +147,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                     paymentStatus: 'FAILED',
                 },
             });
-            return res.redirect('https://institution.sbiea.co.in');
+            return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.instituteId}`);
         }
     }
 };
