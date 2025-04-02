@@ -219,14 +219,16 @@ model Notice {
 }
 
 model Course {
-  id         String     @id @default(cuid())
-  name       String
-  code       String?
-  fees       Float?
-  courseType CourseType
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  subjects   Subject[]
+  id           String        @id @default(cuid())
+  name         String
+  code         String?
+  fees         Float?
+  duration     Int?
+  durationType DurationType?
+  courseType   CourseType
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  subjects     Subject[]
 }
 
 model Subject {
@@ -474,4 +476,9 @@ enum PaymentInstrumentType {
   UPI
   NETBANKING
   CARD
+}
+
+enum DurationType {
+  MONTH
+  YEAR
 }
