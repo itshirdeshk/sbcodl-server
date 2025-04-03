@@ -4,6 +4,9 @@ import { ValidatedRequest } from "express-joi-validation";
 import { VerifyPaymentRequestSchema } from "../../validation/payment/verifyPayment";
 import axios from "axios";
 import { Response } from "express";
+import path from "path";
+import fs from "fs";
+import transporter from "../../config/emailConfig";
 
 const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL;
 const MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID;
@@ -49,8 +52,12 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
             },
         });
 
+        const sourcePath = path.join(process.cwd(), 'emailTemplate', 'paymentConfirmation.html');
+        const source = fs.readFileSync(sourcePath, 'utf8');
+        const template = Handlebars.compile(source);
+
         if (payment.paymentType === 'STUDENT') {
-            await prisma.student.update({
+            const response = await prisma.student.update({
                 where: {
                     id: payment.studentId!,
                 },
@@ -59,15 +66,33 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                 },
             });
 
+            const html = template({ applicationNumber: response.applicationNumber, name: response.name, transactionId: payment.merchantTransactionId, paymentDate: new Date().toLocaleDateString(), amount: payment.amount, paymentMethod: payment.paymentInstrumentType });
+
+            await transporter.sendMail({
+                from: `${process.env.EMAIL_USER}@sbiea.co.in`,
+                to: response.email,
+                subject: "Student Payment Confirmation",
+                html: html
+            });
+
             return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.studentId}`);
         } else if (payment.paymentType === 'INSTITUTE') {
-            await prisma.institute.update({
+            const response = await prisma.institute.update({
                 where: {
                     id: payment.instituteId!,
                 },
                 data: {
                     paymentStatus: 'SUCCESS',
                 },
+            });
+
+            const html = template({ applicationNumber: response.applicationNumber, name: response.centerName, transactionId: payment.merchantTransactionId, paymentDate: new Date().toLocaleDateString(), amount: payment.amount, paymentMethod: payment.paymentInstrumentType });
+
+            await transporter.sendMail({
+                from: `${process.env.EMAIL_USER}@sbiea.co.in`,
+                to: response.centerEmailId,
+                subject: "Institution Payment Confirmation",
+                html: html
             });
 
             return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.instituteId}`);

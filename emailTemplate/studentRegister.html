@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registeration</title>
+    <title>Student Registration Confirmation</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -50,7 +50,7 @@
             margin: 0 0 20px;
         }
 
-        .otp {
+        .application-number {
             display: inline-block;
             margin: 20px 0;
             padding: 15px 30px;
@@ -88,6 +88,33 @@
             max-width: 150px;
             height: auto;
         }
+        
+        .next-steps {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .next-steps h3 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        
+        .next-steps ol {
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        
+        .next-steps li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            color: #007bff;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -95,28 +122,46 @@
     <div class="container">
         <!-- Header Section -->
         <div class="header">
-            <h1>Student Registeration</h1>
+            <h1>Student Registration Confirmation</h1>
         </div>
 
         <!-- Content Section -->
-        <!-- <div class="content">
-            <div class="illustration"> -->
-        <!-- Add an illustration or icon here -->
-        <!-- <img src="https://cdn-icons-png.flaticon.com/512/4472/4472583.png" alt="OTP Illustration">
-            </div> -->
-        <h3>Thank you for registering as a student with SBCODL.</h3>
-        <p>Your application number is:</strong></p>
-        <div class="otp">
-            <strong>{{applicationNumber}}</strong>
+        <div class="content">
+            <!-- <div class="illustration"> -->
+                <!-- Add an illustration or icon here -->
+                <!-- <img src="https://cdn-icons-png.flaticon.com/512/4472/4472583.png" alt="Registration Confirmation"> -->
+            <!-- </div> -->
+            
+            <h2>Welcome to SBCODL!</h2>
+            <p>Congratulations! Your registration has been successfully completed. We're excited to have you join our community of learners.</p>
+            
+            <p>Your unique application number is:</p>
+            <div class="application-number">
+                <strong>{{applicationNumber}}</strong>
+            </div>
+            
+            <p><strong>Please save this application number</strong> as you'll need it for all future communications and to access your student portal.</p>
+            
+            <div class="next-steps">
+                <h3>Next Steps:</h3>
+                <ol>
+                    <li>Log in to the student portal using your application number and date of birth</li>
+                    <li>Make the necessary fee payment to confirm your enrollment</li>
+                    <li>Complete your profile by uploading any pending documents</li>
+                    <li>Review your course details and schedule</li>
+                </ol>
+            </div>
+            
+            <p>If you have any questions or need assistance, please don't hesitate to contact our support team at <a href="mailto:info@sbiea.co.in">info@sbiea.co.in</a> .</p>
+            
+            <p>We look forward to supporting you on your educational journey!</p>
         </div>
-        <p>Please use this application number to complete your next registeration steps.</p>
-    </div>
 
-    <!-- Footer Section -->
-    <!-- <div class="footer">
-            <p>If you didn't request this OTP, please ignore this email or contact support at <a href="mailto:support@example.com">support@example.com</a>.</p>
-            <p>&copy; 2023 Your Company. All rights reserved.</p>
-        </div> -->
+        <!-- Footer Section -->
+        <div class="footer">
+            <p>This is an automated email. Please do not reply to this message.</p>
+            <p>&copy; 2025 SBCODL. All rights reserved.</p>
+        </div>
     </div>
 </body>
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institutional Registeration</title>
+    <title>Institution Registration Confirmation</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -27,7 +27,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #007bff, #00a8ff);
+            background: linear-gradient(135deg, #6a3093, #a044ff);
             padding: 30px;
             text-align: center;
             color: #fff;
@@ -50,11 +50,11 @@
             margin: 0 0 20px;
         }
 
-        .otp {
+        .application-number {
             display: inline-block;
             margin: 20px 0;
             padding: 15px 30px;
-            background-color: #007bff;
+            background-color: #6a3093;
             color: #fff;
             font-size: 28px;
             font-weight: bold;
@@ -71,7 +71,7 @@
         }
 
         .footer a {
-            color: #007bff;
+            color: #6a3093;
             text-decoration: none;
         }
 
@@ -88,6 +88,54 @@
             max-width: 150px;
             height: auto;
         }
+        
+        .next-steps {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .next-steps h3 {
+            color: #6a3093;
+            margin-top: 0;
+        }
+        
+        .next-steps ol {
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        
+        .next-steps li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            color: #6a3093;
+            font-weight: bold;
+        }
+        
+        .benefits {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .benefit {
+            width: 45%;
+            margin: 10px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .benefit h4 {
+            color: #6a3093;
+            margin-top: 0;
+        }
     </style>
 </head>
 
@@ -95,28 +143,65 @@
     <div class="container">
         <!-- Header Section -->
         <div class="header">
-            <h1>Institutional Registeration</h1>
+            <h1>Institution Registration Confirmation</h1>
         </div>
 
         <!-- Content Section -->
-        <!-- <div class="content">
-            <div class="illustration"> -->
-        <!-- Add an illustration or icon here -->
-        <!-- <img src="https://cdn-icons-png.flaticon.com/512/4472/4472583.png" alt="OTP Illustration">
+        <div class="content">
+            <!-- <div class="illustration"> -->
+                <!-- Add an illustration or icon here -->
+                <!-- <img src="https://cdn-icons-png.flaticon.com/512/5351/5351041.png" alt="Institution Registration"> -->
+            <!-- </div> -->
+            
+            <h2>Welcome to SBCODL Partner Network!</h2>
+            <p>Congratulations! Your institution has been successfully registered with SBCODL. We're excited to welcome you as our educational partner.</p>
+            
+            <p>Your institution's unique application number is:</p>
+            <div class="application-number">
+                <strong>{{applicationNumber}}</strong>
+            </div>
+            
+            <p><strong>Please save this application number</strong> as you'll need it for all future communications and to access your institution portal.</p>
+            
+            <!-- <div class="benefits">
+                <div class="benefit">
+                    <h4>Access to Resources</h4>
+                    <p>Gain access to our extensive library of educational materials and resources.</p>
+                </div>
+                <div class="benefit">
+                    <h4>Student Management</h4>
+                    <p>Easily manage student enrollments and track their progress.</p>
+                </div>
+                <div class="benefit">
+                    <h4>Technical Support</h4>
+                    <p>Receive dedicated technical support for your institution.</p>
+                </div>
+                <div class="benefit">
+                    <h4>Certification</h4>
+                    <p>Issue recognized certificates to your students.</p>
+                </div>
             </div> -->
-        <h3>Thank you for registering as a student with SBCODL.</h3>
-        <p>Your application number is:</strong></p>
-        <div class="otp">
-            <strong>{{applicationNumber}}</strong>
+            
+            <div class="next-steps">
+                <h3>Next Steps:</h3>
+                <ol>
+                    <li>Log in to the institution portal using your application number and head date of birth</li>
+                    <li>Make the necessary fee payment to confirm your enrollment</li>
+                    <li>Complete your institution profile by uploading any pending documents</li>
+                    <li>Begin enrolling students through your institution portal</li>
+                </ol>
+            </div>
+            
+            <p>If you need immediate assistance, please contact our partnership support team at <a href="mailto:info@sbiea.co.in">info@sbiea.co.in</a>.</p>
+            
+            <p>We look forward to a successful partnership!</p>
         </div>
-        <p>Please use this application number to complete your next registeration steps.</p>
-    </div>
 
-    <!-- Footer Section -->
-    <!-- <div class="footer">
-            <p>If you didn't request this OTP, please ignore this email or contact support at <a href="mailto:support@example.com">support@example.com</a>.</p>
-            <p>&copy; 2023 Your Company. All rights reserved.</p>
-        </div> -->
+        <!-- Footer Section -->
+        <div class="footer">
+            <p>This is an automated email. Please do not reply to this message.</p>
+            <p>&copy; 2025 SBCODL. All rights reserved.</p>
+        </div>
     </div>
 </body>
 
