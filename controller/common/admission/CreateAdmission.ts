@@ -63,7 +63,7 @@ export const CreateAdmission = async (
     const html = template({ applicationNumber: applicationNumber });
 
     await transporter.sendMail({
-        from: process.env.EMAIL_USER,
+        from: `${process.env.EMAIL_USER}@sbiea.co.in`,
         to: email,
         subject: "Student Registration Successful",
         html: html

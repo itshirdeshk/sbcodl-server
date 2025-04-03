@@ -2,9 +2,9 @@ import nodemailer from 'nodemailer'
 
 let transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
-    port: 465,
+    port: 587,
     // service: 'gmail',
-    secure: true, // true for 465, false for other ports
+    secure: false, // true for 465, false for other ports
     auth: {
         user: process.env.EMAIL_USER, // Admin Gmail ID
         pass: process.env.EMAIL_PASS, // Admin Gmail Password
