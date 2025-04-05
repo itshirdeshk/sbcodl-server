@@ -88,7 +88,7 @@
             max-width: 150px;
             height: auto;
         }
-        
+
         .next-steps {
             background-color: #f8f9fa;
             border-radius: 8px;
@@ -96,24 +96,42 @@
             margin: 20px 0;
             text-align: left;
         }
-        
+
         .next-steps h3 {
             color: #007bff;
             margin-top: 0;
         }
-        
+
         .next-steps ol {
             margin-left: 20px;
             padding-left: 0;
         }
-        
+
         .next-steps li {
             margin-bottom: 10px;
         }
-        
+
         .highlight {
             color: #007bff;
             font-weight: bold;
+        }
+
+        .login-button {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #0069d9;
         }
     </style>
 </head>
@@ -128,20 +146,22 @@
         <!-- Content Section -->
         <div class="content">
             <!-- <div class="illustration"> -->
-                <!-- Add an illustration or icon here -->
-                <!-- <img src="https://cdn-icons-png.flaticon.com/512/4472/4472583.png" alt="Registration Confirmation"> -->
+            <!-- Add an illustration or icon here -->
+            <!-- <img src="https://cdn-icons-png.flaticon.com/512/4472/4472583.png" alt="Registration Confirmation"> -->
             <!-- </div> -->
-            
+
             <h2>Welcome to SBCODL!</h2>
-            <p>Congratulations! Your registration has been successfully completed. We're excited to have you join our community of learners.</p>
-            
+            <p>Congratulations! Your registration has been successfully completed. We're excited to have you join our
+                community of learners.</p>
+
             <p>Your unique application number is:</p>
             <div class="application-number">
                 <strong>{{applicationNumber}}</strong>
             </div>
-            
-            <p><strong>Please save this application number</strong> as you'll need it for all future communications and to access your student portal.</p>
-            
+
+            <p><strong>Please save this application number</strong> as you'll need it for all future communications and
+                to access your student portal.</p>
+
             <div class="next-steps">
                 <h3>Next Steps:</h3>
                 <ol>
@@ -151,9 +171,12 @@
                     <li>Review your course details and schedule</li>
                 </ol>
             </div>
-            
-            <p>If you have any questions or need assistance, please don't hesitate to contact our support team at <a href="mailto:info@sbiea.co.in">info@sbiea.co.in</a> .</p>
-            
+
+            <a href="https://student.sbiea.co.in/login" target="_blank" class="login-button">Login Now</a>
+
+            <p>If you have any questions or need assistance, please don't hesitate to contact our support team at <a
+                    href="mailto:info@sbiea.co.in">info@sbiea.co.in</a> .</p>
+
             <p>We look forward to supporting you on your educational journey!</p>
         </div>
 

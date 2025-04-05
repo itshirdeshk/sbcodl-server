@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Institution Registration Confirmation</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: "Arial", sans-serif;
             background-color: #f7f9fc;
             margin: 0;
             padding: 0;
@@ -88,7 +88,7 @@
             max-width: 150px;
             height: auto;
         }
-        
+
         .next-steps {
             background-color: #f8f9fa;
             border-radius: 8px;
@@ -96,33 +96,33 @@
             margin: 20px 0;
             text-align: left;
         }
-        
+
         .next-steps h3 {
             color: #6a3093;
             margin-top: 0;
         }
-        
+
         .next-steps ol {
             margin-left: 20px;
             padding-left: 0;
         }
-        
+
         .next-steps li {
             margin-bottom: 10px;
         }
-        
+
         .highlight {
             color: #6a3093;
             font-weight: bold;
         }
-        
+
         .benefits {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             margin: 20px 0;
         }
-        
+
         .benefit {
             width: 45%;
             margin: 10px;
@@ -131,10 +131,28 @@
             border-radius: 8px;
             text-align: center;
         }
-        
+
         .benefit h4 {
             color: #6a3093;
             margin-top: 0;
+        }
+
+        .login-button {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 15px 30px;
+            background-color: #6a3093;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #8a42c9;
         }
     </style>
 </head>
@@ -149,20 +167,26 @@
         <!-- Content Section -->
         <div class="content">
             <!-- <div class="illustration"> -->
-                <!-- Add an illustration or icon here -->
-                <!-- <img src="https://cdn-icons-png.flaticon.com/512/5351/5351041.png" alt="Institution Registration"> -->
+            <!-- Add an illustration or icon here -->
+            <!-- <img src="https://cdn-icons-png.flaticon.com/512/5351/5351041.png" alt="Institution Registration"> -->
             <!-- </div> -->
-            
+
             <h2>Welcome to SBCODL Partner Network!</h2>
-            <p>Congratulations! Your institution has been successfully registered with SBCODL. We're excited to welcome you as our educational partner.</p>
-            
+            <p>
+                Congratulations! Your institution has been successfully registered
+                with SBCODL. We're excited to welcome you as our educational partner.
+            </p>
+
             <p>Your institution's unique application number is:</p>
             <div class="application-number">
                 <strong>{{applicationNumber}}</strong>
             </div>
-            
-            <p><strong>Please save this application number</strong> as you'll need it for all future communications and to access your institution portal.</p>
-            
+
+            <p>
+                <strong>Please save this application number</strong> as you'll need it
+                for all future communications and to access your institution portal.
+            </p>
+
             <!-- <div class="benefits">
                 <div class="benefit">
                     <h4>Access to Resources</h4>
@@ -181,19 +205,31 @@
                     <p>Issue recognized certificates to your students.</p>
                 </div>
             </div> -->
-            
+
             <div class="next-steps">
                 <h3>Next Steps:</h3>
                 <ol>
-                    <li>Log in to the institution portal using your application number and head date of birth</li>
+                    <li>
+                        Log in to the institution portal using your application number and
+                        head date of birth
+                    </li>
                     <li>Make the necessary fee payment to confirm your enrollment</li>
-                    <li>Complete your institution profile by uploading any pending documents</li>
+                    <li>
+                        Complete your institution profile by uploading any pending
+                        documents
+                    </li>
                     <li>Begin enrolling students through your institution portal</li>
                 </ol>
             </div>
-            
-            <p>If you need immediate assistance, please contact our partnership support team at <a href="mailto:info@sbiea.co.in">info@sbiea.co.in</a>.</p>
-            
+
+            <a href="https://institution.sbiea.co.in/login" target="_blank" class="login-button">Login Now</a>
+
+            <p>
+                If you need immediate assistance, please contact our partnership
+                support team at
+                <a href="mailto:info@sbiea.co.in">info@sbiea.co.in</a>.
+            </p>
+
             <p>We look forward to a successful partnership!</p>
         </div>
 
