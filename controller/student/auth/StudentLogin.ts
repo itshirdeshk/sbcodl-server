@@ -48,7 +48,7 @@ export const StudentLogin = async (req: ValidatedRequest<StudentLoginRequestSche
             uid: student.id,
         },
         process.env.ACCESS_TOKEN_SECRET as string,
-        { expiresIn: "1h" }
+        { expiresIn: "1d" }
     );
 
     const refreshToken = jwt.sign(

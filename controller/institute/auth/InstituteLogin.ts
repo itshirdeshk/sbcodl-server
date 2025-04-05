@@ -48,7 +48,7 @@ export const InstituteLogin = async (req: ValidatedRequest<InstituteLoginRequest
             uid: institute.id,
         },
         process.env.ACCESS_TOKEN_SECRET as string,
-        { expiresIn: "7d" }
+        { expiresIn: "1d" }
     );
 
     const refreshToken = jwt.sign(

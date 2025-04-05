@@ -27,6 +27,7 @@ model Student {
   gender                    Gender
   nationality               String
   courseId                  String
+  courseStatus              CourseStatus               @default(ONGOING)
   batch                     BatchType
   studentPhoto              String?
   subjectIds                String[]
@@ -481,4 +482,9 @@ enum PaymentInstrumentType {
 enum DurationType {
   MONTH
   YEAR
+}
+
+enum CourseStatus {
+  ONGOING
+  COMPLETED
 }

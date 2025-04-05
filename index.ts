@@ -18,9 +18,13 @@ import { getCoursesSchema } from "./validation/common/course/GetCourses";
 import { getCourseByIdSchema } from "./validation/common/course/GetCourseById";
 import { GetSubjects } from "./controller/common/subject/GetSubjects";
 import { GetSubjectById } from "./controller/common/subject/GetSubjectById";
+import { CourseStatusScheduler } from "./schedulers/courseStatusScheduler";
 
 const app = express();
 const port = process.env.PORT || 8080;
+
+const courseStatusScheduler = new CourseStatusScheduler();
+courseStatusScheduler.start();
 
 app.use(express.json());
 app.use(corsMiddleware);

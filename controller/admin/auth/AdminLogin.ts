@@ -40,7 +40,7 @@ export const AdminLogin = async (req: ValidatedRequest<AdminLoginRequestSchema>)
             uid: admin.id,
         },
         process.env.ACCESS_TOKEN_SECRET as string,
-        { expiresIn: "1h" }
+        { expiresIn: "1d" }
     );
 
     const refreshToken = jwt.sign(
