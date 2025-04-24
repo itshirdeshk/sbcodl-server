@@ -18,6 +18,7 @@ export const GetPaymentDetails = async (req: ValidatedRequest<GetPaymentDetailsR
         });
 
         const payment = student?.payments.pop();
+        console.log(payment);
 
         const response = {
             name: student?.name,
@@ -27,6 +28,7 @@ export const GetPaymentDetails = async (req: ValidatedRequest<GetPaymentDetailsR
             phonePeTransactionId: payment?.phonePeTransactionId,
             merchantTransactionId: payment?.merchantTransactionId,
             paymentInstrument: payment?.paymentInstrumentType,
+            date: payment?.updatedAt,
         }
 
         if (payment?.paymentInstrumentType === 'UPI') {
@@ -72,6 +74,7 @@ export const GetPaymentDetails = async (req: ValidatedRequest<GetPaymentDetailsR
             phonePeTransactionId: payment?.phonePeTransactionId,
             merchantTransactionId: payment?.merchantTransactionId,
             paymentInstrument: payment?.paymentInstrumentType,
+            date: payment?.updatedAt,
         };
 
         if (payment?.paymentInstrumentType === 'UPI') {
