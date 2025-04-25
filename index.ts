@@ -19,6 +19,8 @@ import { getCourseByIdSchema } from "./validation/common/course/GetCourseById";
 import { GetSubjects } from "./controller/common/subject/GetSubjects";
 import { GetSubjectById } from "./controller/common/subject/GetSubjectById";
 import { CourseStatusScheduler } from "./schedulers/courseStatusScheduler";
+import { getInstitutesBySearchTermSchema } from "./validation/common/institute/GetInstitutesBySearchTerm";
+import { GetInstitutesBySearchTerm } from "./controller/common/institute/GetInstitutesBySearchTerm";
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -47,6 +49,9 @@ app.post('/api/public/course/list', afterPayloadValidation(getCoursesSchema), cr
 // Subject
 app.get('/api/public/subject/:id', afterParamsValidation(getSubjectByIdSchema), createControllerHandlerFor(GetSubjectById));
 app.post('/api/public/subject/list', afterPayloadValidation(getSubjectsSchema), createControllerHandlerFor(GetSubjects));
+
+// Institute
+app.post('/api/public/institute/list', afterPayloadValidation(getInstitutesBySearchTermSchema), createControllerHandlerFor(GetInstitutesBySearchTerm));
 
 app.use(errorHandler);
 
