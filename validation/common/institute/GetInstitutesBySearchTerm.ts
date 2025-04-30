@@ -6,6 +6,7 @@ export interface GetInstitutesBySearchTermRequestSchema
     extends ValidatedRequestSchema {
     [ContainerTypes.Body]: {
         searchTerm: string;
+        paymentStatus: PaymentStatus;
 
         limit: number;
         skip: number;
@@ -14,7 +15,8 @@ export interface GetInstitutesBySearchTermRequestSchema
 
 export const getInstitutesBySearchTermSchema = Joi.object({
     searchTerm: Joi.string().required(),
-
+    paymentStatus: Joi.string().valid(...Object.values(PaymentStatus)),
+    
     limit: Joi.number().required(),
     skip: Joi.number().required(),
 })

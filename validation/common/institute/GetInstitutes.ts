@@ -12,7 +12,7 @@ export interface GetInstitutesRequestSchema
         headMobileNumber: string;
         headEmailId: string;
         centerCode: string;
-        payementStatus: PaymentStatus;
+        paymentStatus: PaymentStatus;
 
         limit: number;
         skip: number;
@@ -27,7 +27,7 @@ export const getInstitutesSchema = Joi.object({
     headMobileNumber: Joi.string(),
     headEmailId: Joi.string(),
     centerCode: Joi.string(),
-    payementStatus: Joi.string().valid(...Object.values(PaymentStatus)),
+    paymentStatus: Joi.string().valid(...Object.values(PaymentStatus)),
 
     limit: Joi.number().required(),
     skip: Joi.number().required(),

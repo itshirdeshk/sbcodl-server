@@ -80,6 +80,8 @@ import { getInstitutesSchema } from "../validation/common/institute/GetInstitute
 import { GetInstituteById } from "../controller/common/institute/GetInstituteById";
 import { GetInstitutes } from "../controller/common/institute/GetInstitutes";
 import { GetStudentByIdForStudent } from "../controller/common/student/GetStudentByIdForStudent";
+import { getAllPaymentsSchema } from "../validation/payment/GetAllPayments";
+import { GetAllPayments } from "../controller/payment/GetAllPayments";
 
 
 export const router = Router();
@@ -147,5 +149,7 @@ router.delete("/enquiry/:id", allowOnlyAdmin, afterParamsValidation(deleteEnquir
 router.get('/enquiry/:id', allowOnlyAdmin, afterParamsValidation(getEnquiryByIdSchema), createControllerHandlerFor(GetEnquiryById));
 router.post('/enquiry/list', allowOnlyAdmin, afterPayloadValidation(getEnquiresSchema), createControllerHandlerFor(GetEnquiries));
 
+// Payment
+router.post('/payment/list', allowOnlyAdmin, afterPayloadValidation(getAllPaymentsSchema), createControllerHandlerFor(GetAllPayments));
 
 export default router;

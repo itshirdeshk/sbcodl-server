@@ -9,7 +9,7 @@ interface AuthenticatedRequest extends ValidatedRequest<GetStudentByIdRequestSch
 export const GetStudentByIdForInstitute = async (req: AuthenticatedRequest) => {
     const { id } = req.params;
     const instituteId = req.user.id;
-    
+
     const student = await prisma.student.findUnique({
         where: { applicationNumber: id, instituteId: instituteId },
         include: {

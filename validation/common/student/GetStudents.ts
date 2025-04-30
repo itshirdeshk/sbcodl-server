@@ -16,6 +16,8 @@ export interface GetStudentsRequestSchema
         email: string;
         instituteId: string;
         paymentStatus: PaymentStatus;
+        name: string;
+        admissionType: AdmissionType;
 
         skip: number,
         limit: number,
@@ -35,6 +37,7 @@ export const getStudentsSchema = Joi.object({
     instituteId: Joi.string(),
     paymentStatus: Joi.string().valid(...Object.values(PaymentStatus)),
     id: Joi.string(),
+    name: Joi.string(),
 
     skip: Joi.number().required(),
     limit: Joi.number().required(),

@@ -3,7 +3,7 @@ import prisma from "../../../prisma/prismaInstance";
 import { GetInstitutesBySearchTermRequestSchema } from "../../../validation/common/institute/GetInstitutesBySearchTerm";
 
 export const GetInstitutesBySearchTerm = async (req: ValidatedRequest<GetInstitutesBySearchTermRequestSchema>) => {
-    const { searchTerm, limit, skip } = req.body;
+    const { searchTerm, limit, skip, paymentStatus } = req.body;
 
     const institutes = await prisma.institute.findMany({
         where: {
@@ -38,6 +38,9 @@ export const GetInstitutesBySearchTerm = async (req: ValidatedRequest<GetInstitu
                         mode: 'insensitive'
                     }
                 },
+                {
+                    paymentStatus: paymentStatus
+                }
             ]
         },
         skip: skip,
@@ -54,6 +57,7 @@ export const GetInstitutesBySearchTerm = async (req: ValidatedRequest<GetInstitu
             headMobileNumber: institute.headMobileNumber,
             centerCity: institute.centerCity,
             centerState: institute.centerState,
+            paymentStatus: institute.paymentStatus,
         }
     })
 
