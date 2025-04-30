@@ -7,6 +7,7 @@ import { Response } from "express";
 import path from "path";
 import fs from "fs";
 import transporter from "../../config/emailConfig";
+import Handlebars from "handlebars";
 
 const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL;
 const MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID;
