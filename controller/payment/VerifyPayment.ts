@@ -8,6 +8,7 @@ import path from "path";
 import fs from "fs";
 import transporter from "../../config/emailConfig";
 import Handlebars from "handlebars";
+import { generateCenterCode, generateEnrollmentNumber, generateRegistrationNumber } from "../../utils/generateNumbers";
 
 const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL;
 const MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID;
@@ -58,11 +59,13 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
         const template = Handlebars.compile(source);
 
         if (payment.paymentType === 'STUDENT') {
+            const enrollmentNumber = generateEnrollmentNumber();
             const response = await prisma.student.update({
                 where: {
                     id: payment.studentId!,
                 },
                 data: {
+                    enrollmentNumber: enrollmentNumber,
                     paymentStatus: 'SUCCESS',
                 },
             });
@@ -78,11 +81,16 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
 
             return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.studentId}`);
         } else if (payment.paymentType === 'INSTITUTE') {
+            const registrationNumber = generateRegistrationNumber();
+            const centerCode = generateCenterCode();
+
             const response = await prisma.institute.update({
                 where: {
                     id: payment.instituteId!,
                 },
                 data: {
+                    registrationNumber: registrationNumber,
+                    centerCode: centerCode, 
                     paymentStatus: 'SUCCESS',
                 },
             });
