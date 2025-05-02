@@ -15,6 +15,7 @@ export const GetStudentByIdForStudent = async (req: ValidatedRequest<GetStudentB
                     details: true
                 },
             },
+            payments: true,
             educationalQualifications: true,
             documents: true,
             lastPassedExam: true,
