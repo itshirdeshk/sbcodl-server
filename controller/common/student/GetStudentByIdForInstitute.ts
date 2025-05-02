@@ -20,6 +20,7 @@ export const GetStudentByIdForInstitute = async (req: AuthenticatedRequest) => {
                     details: true
                 },
             },
+            payments: true,
             educationalQualifications: true,
             documents: true,
             lastPassedExam: true,
