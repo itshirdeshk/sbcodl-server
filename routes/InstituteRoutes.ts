@@ -34,6 +34,8 @@ import { GetNoticeById } from "../controller/common/notice/GetNoticeById";
 import { GetNotices } from "../controller/common/notice/GetNotices";
 import { getNoticeByIdSchema } from "../validation/common/notice/GetNoticeById";
 import { getNoticesSchema } from "../validation/common/notice/GetNotices";
+import { getAllPaymentsForInstituteSchema } from "../validation/payment/GetAllPaymentsForInstitute";
+import { GetAllPaymentsForInstitute } from "../controller/payment/GetAllPaymentsForInstitute";
 
 export const router = Router();
 
@@ -48,7 +50,7 @@ router.get("/admission/enrollment-number/:applicationNumber", allowOnlyInstitute
 
 // Student
 router.get("/student/:id", allowOnlyInstitute, afterParamsValidation(getStudentByIdSchema), createControllerHandlerFor(GetStudentByIdForInstitute));
-router.post("/student/list", allowOnlyInstitute, createControllerHandlerFor(GetStudents));
+router.post("/student/list", allowOnlyInstitute, afterPayloadValidation(getStudentsSchema), createControllerHandlerFor(GetStudents));
 
 // Instiute
 router.post("/institute", instituteFileUploadHandler.single('image'), afterPayloadValidation(createInsituteSchema), createControllerHandlerFor(CreateInstitute));
@@ -66,5 +68,7 @@ router.post('/result/list', allowOnlyInstitute, afterPayloadValidation(getResult
 // Notice
 router.get('/notice/:id', allowOnlyInstitute, afterParamsValidation(getNoticeByIdSchema), createControllerHandlerFor(GetNoticeById));
 router.post('/notice/list', allowOnlyInstitute, afterPayloadValidation(getNoticesSchema), createControllerHandlerFor(GetNotices));
+
+router.post("/payment/list", allowOnlyInstitute, afterPayloadValidation(getAllPaymentsForInstituteSchema), createControllerHandlerFor(GetAllPaymentsForInstitute));
 
 export default router;

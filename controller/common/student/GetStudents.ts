@@ -11,10 +11,10 @@ export const GetStudents = async (req: ValidatedRequest<GetStudentsRequestSchema
 
     if (id) whereClause.id = id;
     if (admissionType) whereClause.admissionType = admissionType;
-    if (applicationNumber) whereClause.applicationNumber = applicationNumber;
+    if (applicationNumber) whereClause.applicationNumber = { contains: applicationNumber, mode: 'insensitive' };
     if (batch) whereClause.batch = batch;
     if (category) whereClause.category = category;
-    if (enrollmentNumber) whereClause.enrollmentNumber = enrollmentNumber;
+    if (enrollmentNumber) whereClause.enrollmentNumber = { contains: enrollmentNumber, mode: 'insensitive' };
     if (gender) whereClause.gender = gender;
     if (paymentStatus) whereClause.paymentStatus = paymentStatus;
     if (name) whereClause.name = { contains: name, mode: 'insensitive' };

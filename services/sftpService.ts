@@ -18,7 +18,6 @@ class SFTPService {
                 password: process.env.VPS_PASS as string,
             });
             this.connected = true;
-            console.log("SFTP connected successfully.");
         } catch (error) {
             console.error("SFTP connection error:", error);
             throw new Error("Failed to connect to SFTP");

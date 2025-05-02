@@ -1,27 +1,37 @@
 import { ValidatedRequest } from "express-joi-validation";
-import { GetAllPaymentsRequestSchema } from "../../validation/payment/GetAllPayments";
 import prisma from "../../prisma/prismaInstance";
+import { GetAllPaymentsForInstituteRequestSchema } from "../../validation/payment/GetAllPaymentsForInstitute";
 
-export const GetAllPayments = async (
-    req: ValidatedRequest<GetAllPaymentsRequestSchema>) => {
+export const GetAllPaymentsForInstitute = async (
+    req: ValidatedRequest<GetAllPaymentsForInstituteRequestSchema>) => {
 
-    const { type, status, amount, paymentInstrumentType, skip, limit } = req.body;
+    const { type, status, amount, paymentInstrumentType, skip, limit, instituteId } = req.body;
+
 
     // Build where clause conditionally based on provided filters
-    const whereClause: any = {};
-    
+    const whereClause: any = {
+        AND: [
+            {
+                studentId: { not: null },
+                student: {
+                    instituteId: instituteId
+                }
+            }
+        ]
+    };
+
     if (type) {
         whereClause.paymentType = type;
     }
-    
+
     if (status) {
         whereClause.paymentStatus = status;
     }
-    
+
     if (amount !== undefined) {
         whereClause.amount = amount;
     }
-    
+
     if (paymentInstrumentType) {
         whereClause.paymentInstrumentType = paymentInstrumentType;
     }
@@ -29,11 +39,6 @@ export const GetAllPayments = async (
     const payments = await prisma.payment.findMany({
         where: whereClause,
         include: {
-            institute: {
-                select: {
-                    centerName: true
-                }
-            },
             student: {
                 select: {
                     name: true,
@@ -45,6 +50,6 @@ export const GetAllPayments = async (
         },
         skip,
         take: limit
-    });
+    });    
     return payments;
 }

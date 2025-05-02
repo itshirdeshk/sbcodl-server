@@ -11,7 +11,7 @@ export const GetStudentByIdForInstitute = async (req: AuthenticatedRequest) => {
     const instituteId = req.user.id;
 
     const student = await prisma.student.findUnique({
-        where: { applicationNumber: id, instituteId: instituteId },
+        where: { id: id, instituteId: instituteId },
         include: {
             correspondenceAddress: true,
             permanentAddress: true,
