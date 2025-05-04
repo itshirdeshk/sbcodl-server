@@ -13,4 +13,5 @@ export const R = Object.freeze({
     ERROR_FILE_NOT_FOUND: "File not found",
     ERROR_INSTITUTE_NOT_FOUND: "Institute not found",
     ERROR_PAYMENT_NOT_FOUND: "Payment not found",
+    ERROR_PASSWORD_NOT_MATCH: "Password not match",
 });

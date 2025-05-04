@@ -82,6 +82,8 @@ import { GetInstitutes } from "../controller/common/institute/GetInstitutes";
 import { GetStudentByIdForStudent } from "../controller/common/student/GetStudentByIdForStudent";
 import { getAllPaymentsSchema } from "../validation/payment/GetAllPayments";
 import { GetAllPayments } from "../controller/payment/GetAllPayments";
+import { adminChangePasswordSchema } from "../validation/admin/auth/AdminChangePassword";
+import { AdminChangePassword } from "../controller/admin/auth/AdminChangePassword";
 
 
 export const router = Router();
@@ -89,6 +91,8 @@ export const router = Router();
 // Auth
 router.post("/auth/register", afterPayloadValidation(adminRegisterSchema), createControllerHandlerFor(AdminRegister));
 router.post("/auth/login", afterPayloadValidation(adminLogicSchema), createControllerHandlerFor(AdminLogin));
+
+router.post("/auth/changePassword", allowOnlyAdmin, afterPayloadValidation(adminChangePasswordSchema), createControllerHandlerFor(AdminChangePassword));
 
 // Admission
 router.post("/admission", admissionFileUploadHandler.single("image"), allowOnlyAdmin, admissionParseJsonFieldsMiddleware, afterPayloadValidation(createAdmissionSchema), createControllerHandlerFor(CreateAdmission));
