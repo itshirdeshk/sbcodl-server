@@ -178,6 +178,13 @@ export const UpdateAdmission = async (
                         }
                     }
                 } : {})
+            },
+            include: {
+                permanentAddress: true,
+                correspondenceAddress: true,
+                documents: true,
+                educationalQualifications: true,
+                lastPassedExam: true
             }
         });
 

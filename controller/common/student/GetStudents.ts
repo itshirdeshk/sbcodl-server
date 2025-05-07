@@ -22,7 +22,10 @@ export const GetStudents = async (req: ValidatedRequest<GetStudentsRequestSchema
     const students = await prisma.student.findMany({
         where: whereClause,
         take: limit,
-        skip: skip
+        skip: skip,
+        include: {
+            results: true
+        }
     });
     return students;
 }
