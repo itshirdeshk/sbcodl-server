@@ -28,7 +28,8 @@ export const GetStudents = async (req: ValidatedRequest<GetStudentsRequestSchema
                 include: {
                     details: true
                 }
-            }
+            },
+            documents: true,
         }
     });
     return students;
