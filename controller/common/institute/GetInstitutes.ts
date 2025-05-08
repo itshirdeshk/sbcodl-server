@@ -8,8 +8,10 @@ export const GetInstitutes = async (req: ValidatedRequest<GetInstitutesRequestSc
     const institutes = await prisma.institute.findMany({
         where: { applicationNumber, centerCode, registrationNumber, headAadharNumber, headEmailId, headMobileNumber, headPanCardNumber, paymentStatus },
         skip: skip,
-        take: limit
-
+        take: limit,
+        include: {
+            documents: true,
+        }
     });
     return institutes;
 }
