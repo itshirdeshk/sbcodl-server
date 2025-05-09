@@ -7,12 +7,14 @@ export interface GetSubjectsRequestSchema
     [ContainerTypes.Body]: {
         courseId: string;
         code: string;
-        type: SubjectType
+        type: SubjectType,
+        subjectIds: string[];
     };
 }
 
 export const getSubjectsSchema = Joi.object({
     courseId: Joi.string(),
     code: Joi.string(),
-    type: Joi.string().valid(...Object.values(SubjectType))
+    type: Joi.string().valid(...Object.values(SubjectType)),
+    subjectIds: Joi.array().items(Joi.string())
 });
