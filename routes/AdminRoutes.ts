@@ -84,6 +84,8 @@ import { getAllPaymentsSchema } from "../validation/payment/GetAllPayments";
 import { GetAllPayments } from "../controller/payment/GetAllPayments";
 import { adminChangePasswordSchema } from "../validation/admin/auth/AdminChangePassword";
 import { AdminChangePassword } from "../controller/admin/auth/AdminChangePassword";
+import { adminPaymentApprovedSchema } from "../validation/admin/payment/AdminPaymentApproved";
+import { AdminPaymentApproved } from "../controller/admin/payment/AdminPaymentApproved";
 
 
 export const router = Router();
@@ -155,5 +157,6 @@ router.post('/enquiry/list', allowOnlyAdmin, afterPayloadValidation(getEnquiresS
 
 // Payment
 router.post('/payment/list', allowOnlyAdmin, afterPayloadValidation(getAllPaymentsSchema), createControllerHandlerFor(GetAllPayments));
+router.post('/payment/approved', allowOnlyAdmin, afterPayloadValidation(adminPaymentApprovedSchema), createControllerHandlerFor(AdminPaymentApproved));
 
 export default router;

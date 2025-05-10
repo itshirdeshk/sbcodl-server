@@ -96,7 +96,7 @@ export const createAdmissionSchema = Joi.object({
         division: Joi.string(),
         grade: Joi.string(),
         percentage: Joi.number().required(),
-    })).required(),
+    })),
 
     lastPassedExam: Joi.object({
         subjectType: Joi.string()

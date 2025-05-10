@@ -464,8 +464,14 @@ enum AdmissionType {
 }
 
 enum BatchType {
+  BATCH_1_2022_O_22
+  BATCH_2_2022_M_23
+  BATCH_1_2023_O_23
+  BATCH_2_2023_M_24
   BATCH_1_2024_O_24
   BATCH_2_2024_M_25
+  BATCH_1_2025_O_25
+  BATCH_2_2025_M_26
 }
 
 enum PaymentType {
