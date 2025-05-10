@@ -16,8 +16,19 @@ export const CreateInstitute = async (
 
 ) => {
     const {
+        centerName,
+        headName,
+        centerAddress,
+        headAddress,
+        headFatherName,
         ...instituteDetails
     } = req.body;
+
+    const formattedCenterName = centerName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+    const formattedHeadName = headName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+    const formattedHeadFatherName = headFatherName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+    const formattedCenterAddress = centerAddress.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+    const formattedHeadAddress = headAddress.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 
     if (!req.file || !req.file.buffer) {
         throw new Error(
@@ -55,6 +66,11 @@ export const CreateInstitute = async (
         data: {
             applicationNumber: applicationNumber,
             headProfileImage: imageUrl,
+            centerName: formattedCenterName,
+            headName: formattedHeadName,
+            headFatherName: formattedHeadFatherName,
+            centerAddress: formattedCenterAddress,
+            headAddress: formattedHeadAddress,
             ...instituteDetails,
         }
     });

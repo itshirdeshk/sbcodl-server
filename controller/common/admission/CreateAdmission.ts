@@ -72,12 +72,12 @@ export const CreateAdmission = async (
     const student = await prisma.student.create({
         data: {
             applicationNumber,
-            name,
+            name: name.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' '),
             category,
             dob,
             gender,
-            fatherName,
-            motherName,
+            fatherName: fatherName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' '),
+            motherName: motherName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' '),
             instituteId,
             nationality,
             email,
