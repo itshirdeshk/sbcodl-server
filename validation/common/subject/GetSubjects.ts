@@ -5,6 +5,7 @@ import Joi from "joi";
 export interface GetSubjectsRequestSchema
     extends ValidatedRequestSchema {
     [ContainerTypes.Body]: {
+        name: string;
         courseId: string;
         code: string;
         type: SubjectType,
@@ -16,6 +17,7 @@ export interface GetSubjectsRequestSchema
 }
 
 export const getSubjectsSchema = Joi.object({
+    name: Joi.string(),
     courseId: Joi.string(),
     code: Joi.string(),
     type: Joi.string().valid(...Object.values(SubjectType)),
