@@ -9,6 +9,9 @@ export interface GetSubjectsRequestSchema
         code: string;
         type: SubjectType,
         subjectIds: string[];
+
+        skip?: number;
+        limit?: number;
     };
 }
 
@@ -16,5 +19,8 @@ export const getSubjectsSchema = Joi.object({
     courseId: Joi.string(),
     code: Joi.string(),
     type: Joi.string().valid(...Object.values(SubjectType)),
-    subjectIds: Joi.array().items(Joi.string())
+    subjectIds: Joi.array().items(Joi.string()),
+
+    skip: Joi.number(),
+    limit: Joi.number(),
 });
