@@ -10,7 +10,7 @@ export const generateApplicationNumber = () => {
     const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
     const uniqueNum = (randomNum + timestamp).toString().slice(-10);
 
-    return uniqueNum.padStart(10, '0');
+    return `SBCODL-${uniqueNum.padStart(10, '0')}`;
 };
 
 export const generateEnrollmentNumber = () => {
