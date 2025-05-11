@@ -5,12 +5,17 @@ import Joi from "joi";
 export interface GetCoursesRequestSchema
     extends ValidatedRequestSchema {
     [ContainerTypes.Body]: {
+        name: string;
         courseType: CourseType;
-        code: string;
+
+        skip: number;
+        limit: number;
     };
 }
 
 export const getCoursesSchema = Joi.object({
+    name: Joi.string(),
     courseType: Joi.string().valid(...Object.values(CourseType)),
-    code: Joi.string()
+    skip: Joi.number().default(0).required(),
+    limit: Joi.number().default(10).required(),
 });

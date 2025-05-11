@@ -3,10 +3,10 @@ import prisma from "../../../prisma/prismaInstance";
 import { GetCoursesRequestSchema } from "../../../validation/common/course/GetCourses";
 
 export const GetCourses = async (req: ValidatedRequest<GetCoursesRequestSchema>) => {
-    const { courseType, code } = req.body;
+    const { name, courseType } = req.body;
 
     const courses = await prisma.course.findMany({
-        where: { courseType: courseType, code: code },
+        where: { courseType: courseType, name: { contains: name } },
         include: {
             subjects: true
         }
