@@ -103,35 +103,11 @@ export const CreateEventRegistration = async (
 
         // Send confirmation email
         try {
-            const templatePath = path.join(__dirname, "../../../emailTemplate/eventRegistration.html");
-            
-            // Check if template exists, if not create a simple one
-            let htmlTemplate = `
-                <html>
-                    <body>
-                        <h2>Event Registration Confirmation</h2>
-                        <p>Dear {{firstName}} {{lastName}},</p>
-                        <p>Thank you for registering for our event!</p>
-                        <p><strong>Registration Details:</strong></p>
-                        <ul>
-                            <li>Registration Number: {{registrationNumber}}</li>
-                            <li>Payment Amount: ₹{{paymentAmount}}</li>
-                            {{#if optForFood}}
-                            <li>Food Option: Selected</li>
-                            {{/if}}
-                        </ul>
-                        <p>Your registration is currently pending payment. Please complete the payment process to confirm your enrollment.</p>
-                        <p>Best regards,<br>SBCODL Team</p>
-                    </body>
-                </html>
-            `;
+            const sourcePath = path.join(process.cwd(), 'emailTemplate', 'eventRegistration.html');
+            const source = fs.readFileSync(sourcePath, 'utf8');
+            const template = Handlebars.compile(source);
 
-            if (fs.existsSync(templatePath)) {
-                htmlTemplate = fs.readFileSync(templatePath, "utf-8");
-            }
-
-            const template = Handlebars.compile(htmlTemplate);
-            const htmlContent = template({
+            const html = template({
                 firstName,
                 lastName,
                 registrationNumber,
@@ -143,7 +119,7 @@ export const CreateEventRegistration = async (
                 from: process.env.EMAIL_FROM || "noreply@sbcodl.com",
                 to: email,
                 subject: "Event Registration Confirmation - SBCODL",
-                html: htmlContent
+                html
             });
         } catch (emailError) {
             console.error("Failed to send confirmation email:", emailError);

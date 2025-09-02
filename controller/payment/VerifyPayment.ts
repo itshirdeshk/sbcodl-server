@@ -90,7 +90,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                 },
                 data: {
                     registrationNumber: registrationNumber,
-                    centerCode: centerCode, 
+                    centerCode: centerCode,
                     paymentStatus: 'SUCCESS',
                 },
             });
@@ -116,16 +116,16 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
             });
 
             // Load event registration payment confirmation template
-            const templatePath = path.join(__dirname, "../../emailTemplate/eventRegistrationPayment.html");
-            const source = fs.readFileSync(templatePath, "utf-8");
+            const sourcePath = path.join(process.cwd(), 'emailTemplate', 'eventRegistrationPayment.html');
+            const source = fs.readFileSync(sourcePath, 'utf8');
             const template = Handlebars.compile(source);
 
-            const html = template({ 
-                registrationNumber: response.registrationNumber, 
-                name: `${response.firstName} ${response.lastName}`, 
-                transactionId: payment.merchantTransactionId, 
-                paymentDate: new Date().toLocaleDateString(), 
-                amount: payment.amount, 
+            const html = template({
+                registrationNumber: response.registrationNumber,
+                name: `${response.firstName} ${response.lastName}`,
+                transactionId: payment.merchantTransactionId,
+                paymentDate: new Date().toLocaleDateString(),
+                amount: payment.amount,
                 paymentMethod: payment.paymentInstrumentType,
             });
 
