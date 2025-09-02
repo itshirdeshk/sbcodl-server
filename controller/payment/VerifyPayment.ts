@@ -127,8 +127,6 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                 paymentDate: new Date().toLocaleDateString(), 
                 amount: payment.amount, 
                 paymentMethod: payment.paymentInstrumentType,
-                selectedProgram: response.selectedProgram,
-                programMode: response.programMode
             });
 
             await transporter.sendMail({
