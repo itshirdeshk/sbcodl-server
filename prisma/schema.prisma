@@ -182,6 +182,7 @@ model Payment {
   paymentType           PaymentType
   studentId             String?
   instituteId           String?
+  eventRegistrationId   String?
   paymentStatus         PaymentStatus          @default(PENDING)
   paymentInstrumentType PaymentInstrumentType?
   utr                   String?
@@ -194,6 +195,7 @@ model Payment {
   brn                   String?
   createdAt             DateTime               @default(now())
   updatedAt             DateTime               @updatedAt
+  eventRegistration     EventRegistration?     @relation(fields: [eventRegistrationId], references: [id], onDelete: Cascade)
   institute             Institute?             @relation(fields: [instituteId], references: [id], onDelete: Cascade)
   student               Student?               @relation(fields: [studentId], references: [id], onDelete: Cascade)
 }
@@ -270,6 +272,54 @@ model Result {
   updatedAt     DateTime              @updatedAt
   student       Student               @relation(fields: [studentId], references: [id], onDelete: Cascade)
   details       SubjectResultDetail[]
+}
+
+model EventRegistration {
+  id                      String                       @id @default(cuid())
+  firstName               String
+  lastName                String
+  email                   String                       @unique
+  phone                   String                       @unique
+  dateOfBirth             DateTime
+  gender                  Gender
+  address                 String
+  city                    String
+  state                   String
+  pincode                 String
+  country                 String                       @default("India")
+  qualification           String?
+  instituteName           String?
+  occupation              String?
+  organizationName        String?
+  designation             String?
+  guardianName            String?
+  guardianPhone           String?
+  guardianRelation        String?
+  emergencyContactName    String
+  emergencyContactPhone   String
+  emergencyContactRelation String
+  howDidYouHear           String?
+  specialRequirements     String?
+  previousExperience      String?
+  registrationNumber      String?                      @unique
+  paymentStatus           PaymentStatus                @default(PENDING)
+  paymentAmount           Float
+  optForFood              Boolean?                     @default(false)
+  createdAt               DateTime                     @default(now())
+  updatedAt               DateTime                     @updatedAt
+  documents               EventRegistrationDocument[]
+  payments                Payment[]
+}
+
+model EventRegistrationDocument {
+  id                    String            @id @default(cuid())
+  eventRegistrationId   String
+  documentType          EventDocumentType
+  fileName              String
+  fileUrl               String
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  eventRegistration     EventRegistration @relation(fields: [eventRegistrationId], references: [id], onDelete: Cascade)
 }
 
 enum StudentCategory {
@@ -477,6 +527,7 @@ enum BatchType {
 enum PaymentType {
   STUDENT
   INSTITUTE
+  EVENT_REGISTRATION
 }
 
 enum PaymentInstrumentType {
@@ -493,4 +544,15 @@ enum DurationType {
 enum CourseStatus {
   ONGOING
   COMPLETED
+}
+
+enum EventDocumentType {
+  PROFILE_PICTURE
+  PHOTOGRAPH
+  AADHAR_CARD
+  PAN_CARD
+  EDUCATION_CERTIFICATE
+  EXPERIENCE_LETTER
+  PASSPORT
+  OTHER
 }

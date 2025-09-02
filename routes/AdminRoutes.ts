@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { afterParamsValidation, afterPayloadValidation } from "../middlewares/RequestValidation";
+import { afterParamsValidation, afterPayloadValidation, afterQueryValidation } from "../middlewares/RequestValidation";
 import { createControllerHandlerFor } from "../middlewares/ControllerHandler";
 import { createSubjectSchema } from "../validation/admin/subject/CreateSubject";
 import { CreateSubject } from "../controller/admin/subject/CreateSubject";
@@ -86,6 +86,12 @@ import { adminChangePasswordSchema } from "../validation/admin/auth/AdminChangeP
 import { AdminChangePassword } from "../controller/admin/auth/AdminChangePassword";
 import { adminPaymentApprovedSchema } from "../validation/admin/payment/AdminPaymentApproved";
 import { AdminPaymentApproved } from "../controller/admin/payment/AdminPaymentApproved";
+import { getEventRegistrationsSchema } from "../validation/common/eventRegistration/GetEventRegistrations";
+import { GetEventRegistrations } from "../controller/common/eventRegistration/GetEventRegistrations";
+import { getEventRegistrationByIdParamsSchema } from "../validation/common/eventRegistration/GetEventRegistrationById";
+import { GetEventRegistrationById } from "../controller/common/eventRegistration/GetEventRegistrationById";
+import { updateEventRegistrationPaymentStatusSchema } from "../validation/common/eventRegistration/UpdateEventRegistrationPaymentStatus";
+import { UpdateEventRegistrationPaymentStatus } from "../controller/common/eventRegistration/UpdateEventRegistrationPaymentStatus";
 
 
 export const router = Router();
@@ -158,5 +164,10 @@ router.post('/enquiry/list', allowOnlyAdmin, afterPayloadValidation(getEnquiresS
 // Payment
 router.post('/payment/list', allowOnlyAdmin, afterPayloadValidation(getAllPaymentsSchema), createControllerHandlerFor(GetAllPayments));
 router.post('/payment/approved', allowOnlyAdmin, afterPayloadValidation(adminPaymentApprovedSchema), createControllerHandlerFor(AdminPaymentApproved));
+
+// Event Registration
+router.get('/event-registration/list', allowOnlyAdmin, afterQueryValidation(getEventRegistrationsSchema), createControllerHandlerFor(GetEventRegistrations));
+router.get('/event-registration/:id', allowOnlyAdmin, afterParamsValidation(getEventRegistrationByIdParamsSchema), createControllerHandlerFor(GetEventRegistrationById));
+router.put('/event-registration/payment-status', allowOnlyAdmin, afterPayloadValidation(updateEventRegistrationPaymentStatusSchema), createControllerHandlerFor(UpdateEventRegistrationPaymentStatus));
 
 export default router;

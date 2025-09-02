@@ -13,6 +13,21 @@ export const generateApplicationNumber = () => {
     return `SBCODL-${uniqueNum.padStart(10, '0')}`;
 };
 
+export const generateEventRegistrationNumber = () => {
+    // Generate a 8-digit unique registration number for events
+    const min = 10000000; // Minimum 8-digit number
+    const max = 99999999; // Maximum 8-digit number
+
+    // Use current timestamp to ensure uniqueness
+    const timestamp = new Date().getTime();
+
+    // Combine random number with timestamp and take last 8 digits
+    const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+    const uniqueNum = (randomNum + timestamp).toString().slice(-8);
+
+    return `EVENT-${uniqueNum.padStart(8, '0')}`;
+};
+
 export const generateEnrollmentNumber = () => {
     // Generate a random 10-digit number
     const min = 1000000000; // Minimum 10-digit number

@@ -1,7 +1,6 @@
 import { ValidatedRequest } from "express-joi-validation"
 import { InitiatePaymentRequestSchema } from "../../validation/payment/InitiatePayment"
 import prisma from "../../prisma/prismaInstance";
-import { PaymentType } from "@prisma/client";
 import crypto from "crypto";
 import axios from "axios";
 import { Response } from "express";
@@ -22,12 +21,17 @@ export const InitiatePayment = async (
         paymentType,
         instituteId,
         studentId,
+        eventRegistrationId,
     } = req.body;
 
     // Payment initiation logic
-    const merchantUserId = paymentType === PaymentType.STUDENT ? `STUDENT-${studentId}` : `INSTITUTE-${instituteId}`;
+    const merchantUserId = paymentType === 'STUDENT' ? `STUDENT-${studentId}` : 
+                          paymentType === 'INSTITUTE' ? `INSTITUTE-${instituteId}` :
+                          `EVENT-${eventRegistrationId}`;
 
-    const merchantTransactionId = paymentType === PaymentType.STUDENT ? `TXN-S-${crypto.randomBytes(16).toString('hex')}` : `TXN-I-${crypto.randomBytes(16).toString('hex')}`;
+    const merchantTransactionId = paymentType === 'STUDENT' ? `TXN-S-${crypto.randomBytes(16).toString('hex')}` : 
+                                 paymentType === 'INSTITUTE' ? `TXN-I-${crypto.randomBytes(16).toString('hex')}` :
+                                 `TXN-E-${crypto.randomBytes(16).toString('hex')}`;
 
     const payload = {
         merchantId: MERCHANT_ID,
@@ -78,16 +82,17 @@ export const InitiatePayment = async (
                 merchantUserId: merchantUserId,
                 merchantTransactionId: merchantTransactionId,
                 merchantId: MERCHANT_ID!,
-                paymentType: paymentType,
-                instituteId: instituteId,
-                studentId: studentId,
+                paymentType: paymentType as any,
+                instituteId: instituteId || null,
+                studentId: studentId || null,
+                eventRegistrationId: eventRegistrationId || null,
             }
         });
 
-        if (paymentType === PaymentType.STUDENT) {
+        if (paymentType === 'STUDENT') {
             await prisma.student.update({
                 where: {
-                    id: studentId,
+                    id: studentId!,
                 },
                 data: {
                     payments: {
@@ -97,10 +102,23 @@ export const InitiatePayment = async (
                     }
                 },
             });
-        } else if (paymentType === PaymentType.INSTITUTE) {
+        } else if (paymentType === 'INSTITUTE') {
             await prisma.institute.update({
                 where: {
-                    id: instituteId,
+                    id: instituteId!,
+                },
+                data: {
+                    payments: {
+                        connect: {
+                            id: payment.id,
+                        }
+                    }
+                },
+            });
+        } else if (paymentType === 'EVENT_REGISTRATION') {
+            await prisma.eventRegistration.update({
+                where: {
+                    id: eventRegistrationId!,
                 },
                 data: {
                     payments: {

@@ -5,6 +5,7 @@ import adminRoutes from "./routes/AdminRoutes";
 import instituteRoutes from "./routes/InstituteRoutes";
 import studentRoutes, { router } from "./routes/StudentRoutes";
 import PaymentRoutes from "./routes/PaymentRoutes";
+import EventRegistrationRoutes from "./routes/EventRegistrationRoutes";
 import path from "path";
 import { afterParamsValidation, afterPayloadValidation } from "./middlewares/RequestValidation";
 import { createEnquirySchema } from "./validation/common/enquiry/CreateEnquiry";
@@ -38,6 +39,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/institute", instituteRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/payment", PaymentRoutes);
+app.use("/api/event-registration", EventRegistrationRoutes);
 
 // Enquiry	
 app.post("/api/public/enquiry", afterPayloadValidation(createEnquirySchema), createControllerHandlerFor(CreateEnquiry));

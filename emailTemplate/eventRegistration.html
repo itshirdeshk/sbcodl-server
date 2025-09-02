@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+        }
+        .registration-details {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+        .registration-details h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #555;
+        }
+        .detail-value {
+            color: #333;
+        }
+        .highlight {
+            color: #667eea;
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+        .button {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .status-pending {
+            color: #f39c12;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎓 Event Registration Confirmation</h1>
+        <p>SBCODL - Solanki Boards Centre for Open and Distance Learning</p>
+    </div>
+    
+    <div class="content">
+        <p>Dear <strong>{{firstName}} {{lastName}}</strong>,</p>
+        
+        <p>Thank you for registering for our educational program. We have successfully received your registration application.</p>
+        
+        <div class="registration-details">
+            <h3>📋 Registration Details</h3>
+            
+            <div class="detail-item">
+                <span class="detail-label">Registration Number:</span>
+                <span class="detail-value highlight">{{registrationNumber}}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Program:</span>
+                <span class="detail-value">{{selectedProgram}}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Program Mode:</span>
+                <span class="detail-value">{{programMode}}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Preferred Start Date:</span>
+                <span class="detail-value">{{preferredStartDate}}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Registration Fee:</span>
+                <span class="detail-value highlight">₹{{paymentAmount}}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Payment Status:</span>
+                <span class="detail-value status-pending">Pending</span>
+            </div>
+        </div>
+        
+        <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h4 style="margin: 0 0 10px 0; color: #856404;">⚠️ Next Steps</h4>
+            <p style="margin: 0;">Your registration is currently <strong>pending payment</strong>. Please complete the payment process to confirm your enrollment and secure your seat in the program.</p>
+        </div>
+        
+        <p>Once your payment is confirmed, you will receive:</p>
+        <ul>
+            <li>✅ Payment confirmation email</li>
+            <li>📧 Program welcome kit and schedule</li>
+            <li>📚 Access to learning materials</li>
+            <li>👥 Contact details of program coordinators</li>
+        </ul>
+        
+        <p>If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
+        
+        <div class="footer">
+            <p><strong>Contact Information:</strong></p>
+            <p>📧 Email: support@sbcodl.com</p>
+            <p>📞 Phone: +91 9997874343</p>
+            <p>🌐 Website: www.sbcodl.com</p>
+            
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+            
+            <p style="font-size: 12px; color: #999;">
+                This is an automated email. Please do not reply to this email address.<br>
+                © 2024 SBCODL. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

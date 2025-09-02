@@ -9,8 +9,9 @@ export interface InitiatePaymentRequestSchema
         number: string;
         amount: number;
         paymentType: PaymentType;
-        studentId: string;
-        instituteId: string;
+        studentId?: string;
+        instituteId?: string;
+        eventRegistrationId?: string;
     };
 }
 
@@ -18,16 +19,21 @@ export const initiatePaymentSchema = Joi.object({
     name: Joi.string().required(),
     number: Joi.string().required(),
     amount: Joi.number().required(),
-    paymentType: Joi.string().valid(...Object.values(PaymentType)).required().messages({
+    paymentType: Joi.string().valid('STUDENT', 'INSTITUTE', 'EVENT_REGISTRATION').required().messages({
         'any.only': '{{#label}} must be one of: {{#valids}}',
     }),
     studentId: Joi.string().when('paymentType', {
-        is: PaymentType.STUDENT,
+        is: 'STUDENT',
         then: Joi.required(),
         otherwise: Joi.optional(),
     }),
     instituteId: Joi.string().when('paymentType', {
-        is: PaymentType.INSTITUTE,
+        is: 'INSTITUTE',
+        then: Joi.required(),
+        otherwise: Joi.optional(),
+    }),
+    eventRegistrationId: Joi.string().when('paymentType', {
+        is: 'EVENT_REGISTRATION',
         then: Joi.required(),
         otherwise: Joi.optional(),
     }),

@@ -105,6 +105,40 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
             });
 
             return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.instituteId}`);
+        } else if (payment.paymentType === 'EVENT_REGISTRATION') {
+            const response = await prisma.eventRegistration.update({
+                where: {
+                    id: payment.eventRegistrationId!,
+                },
+                data: {
+                    paymentStatus: 'SUCCESS',
+                },
+            });
+
+            // Load event registration payment confirmation template
+            const templatePath = path.join(__dirname, "../../emailTemplate/eventRegistrationPayment.html");
+            const source = fs.readFileSync(templatePath, "utf-8");
+            const template = Handlebars.compile(source);
+
+            const html = template({ 
+                registrationNumber: response.registrationNumber, 
+                name: `${response.firstName} ${response.lastName}`, 
+                transactionId: payment.merchantTransactionId, 
+                paymentDate: new Date().toLocaleDateString(), 
+                amount: payment.amount, 
+                paymentMethod: payment.paymentInstrumentType,
+                selectedProgram: response.selectedProgram,
+                programMode: response.programMode
+            });
+
+            await transporter.sendMail({
+                from: `${process.env.EMAIL_USER}@sbiea.co.in`,
+                to: response.email,
+                subject: "Event Registration Payment Confirmation",
+                html: html
+            });
+
+            return res.redirect(`https://sbiea.co.in/payment-success?type=${payment.paymentType}&id=${payment.eventRegistrationId}`);
         }
     } else if (parsedResponse.code === 'PAYMENT_PENDING') {
         const payment = await prisma.payment.update({
