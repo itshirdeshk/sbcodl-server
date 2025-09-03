@@ -136,7 +136,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                 html: html
             });
 
-            return res.redirect(`https://sbiea.co.in/payment-success?type=${payment.paymentType}&id=${payment.eventRegistrationId}`);
+            return res.redirect(`https://sbiea.co.in/payment-details?type=${payment.paymentType}&id=${payment.eventRegistrationId}`);
         }
     } else if (parsedResponse.code === 'PAYMENT_PENDING') {
         const payment = await prisma.payment.update({
@@ -176,6 +176,16 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                 },
             });
             return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.instituteId}`);
+        } else if (payment.paymentType === 'EVENT_REGISTRATION') {
+            await prisma.eventRegistration.update({
+                where: {
+                    id: payment.eventRegistrationId!,
+                },
+                data: {
+                    paymentStatus: 'PENDING',
+                },
+            });
+            return res.redirect(`https://sbiea.co.in/payment-details?type=${payment.paymentType}&id=${payment.eventRegistrationId}`);
         }
     } else {
         const payment = await prisma.payment.update({
@@ -214,6 +224,16 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                 },
             });
             return res.redirect(`https://student.sbiea.co.in/payment?type=${payment.paymentType}&id=${payment.instituteId}`);
+        } else if (payment.paymentType === 'EVENT_REGISTRATION') {
+            await prisma.eventRegistration.update({
+                where: {
+                    id: payment.eventRegistrationId!,
+                },
+                data: {
+                    paymentStatus: 'FAILED',
+                },
+            });
+            return res.redirect(`https://sbiea.co.in/payment-details?type=${payment.paymentType}&id=${payment.eventRegistrationId}`);
         }
     }
 };

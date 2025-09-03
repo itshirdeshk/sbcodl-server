@@ -1,10 +1,8 @@
 import { ValidatedRequest } from "express-joi-validation";
 import { Error } from "../../../error/Error";
 import { GeneralErrorCodes } from "../../../constants/ErrorCodes";
-import { R } from "../../../constants/Resource";
 import prisma from "../../../prisma/prismaInstance";
 import { CreateEventRegistrationRequestSchema } from "../../../validation/common/eventRegistration/CreateEventRegistration";
-import sftpService from "../../../services/sftpService";
 import { generateEventRegistrationNumber } from "../../../utils/generateNumbers";
 import path from "path";
 import fs from "fs";
@@ -116,7 +114,7 @@ export const CreateEventRegistration = async (
             });
 
             await transporter.sendMail({
-                from: process.env.EMAIL_FROM || "noreply@sbcodl.com",
+                from: `${process.env.EMAIL_USER}@sbiea.co.in`,
                 to: email,
                 subject: "Event Registration Confirmation - SBCODL",
                 html

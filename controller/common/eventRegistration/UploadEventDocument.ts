@@ -1,7 +1,6 @@
 import { ValidatedRequest } from "express-joi-validation";
 import { Error } from "../../../error/Error";
 import { GeneralErrorCodes } from "../../../constants/ErrorCodes";
-import { R } from "../../../constants/Resource";
 import prisma from "../../../prisma/prismaInstance";
 import sftpService from "../../../services/sftpService";
 import { ContainerTypes, ValidatedRequestSchema } from "express-joi-validation";
@@ -69,7 +68,8 @@ export const UploadEventDocument = async (
         
         // Upload file to SFTP server
         await sftpService.uploadFile(req.file.buffer, remotePath);
-        await sftpService.disconnect();
+
+        const imageUrl = `https://${process.env.VPS_HOST_URL}/uploads/event-registrations/${remotePath.split('/').pop()}`;
         
         // Delete existing document of same type if exists
         const existingDocument = await prisma.eventRegistrationDocument.findFirst({
@@ -91,9 +91,11 @@ export const UploadEventDocument = async (
                 eventRegistrationId: id,
                 documentType: documentType as any,
                 fileName: req.file.originalname,
-                fileUrl: remotePath
+                fileUrl: imageUrl
             }
         });
+
+        await sftpService.disconnect();
 
         return {
             success: true,
