@@ -69,6 +69,8 @@ export const UploadEventDocument = async (
         // Upload file to SFTP server
         await sftpService.uploadFile(req.file.buffer, remotePath);
 
+        await sftpService.disconnect();
+
         const imageUrl = `https://${process.env.VPS_HOST_URL}/uploads/event-registrations/${remotePath.split('/').pop()}`;
         
         // Delete existing document of same type if exists
@@ -94,8 +96,6 @@ export const UploadEventDocument = async (
                 fileUrl: imageUrl
             }
         });
-
-        await sftpService.disconnect();
 
         return {
             success: true,
