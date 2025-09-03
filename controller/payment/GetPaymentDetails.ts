@@ -100,4 +100,57 @@ export const GetPaymentDetails = async (req: ValidatedRequest<GetPaymentDetailsR
             }
         }
     }
+    else if (type === 'EVENT_REGISTRATION') {
+        const event = await prisma.eventRegistration.findUnique({
+            where: {
+                id: id as string
+            },
+            include: {
+                payments: true
+            }
+        });
+
+        console.log(event);
+        
+
+        const payment = event?.payments.pop();
+
+        const response = {
+            registrationNumber: event?.registrationNumber,
+            firstName: event?.firstName,
+            lastName: event?.lastName,
+            email: event?.email,
+            phone: event?.phone,
+            paymentAmount: 5000,
+            paymentStatus: event?.paymentStatus,
+            phonePeTransactionId: payment?.phonePeTransactionId,
+            merchantTransactionId: payment?.merchantTransactionId,
+            paymentInstrument: payment?.paymentInstrumentType,
+            date: payment?.updatedAt,
+        };
+
+        if (payment?.paymentInstrumentType === 'UPI') {
+            return {
+                ...response,
+                utr: payment?.utr,
+            }
+        } else if (payment?.paymentInstrumentType === 'CARD') {
+            return {
+                ...response,
+                cardType: payment?.cardType,
+                pgTransationId: payment?.pgTransactionId,
+                pgAuthorizationCode: payment?.pgAuthorizationCode,
+                arn: payment?.arn,
+                brn: payment?.brn,
+                bankTransactionId: payment?.bankTransactionId,
+                bankId: payment?.bankId,
+            }
+        } else if (payment?.paymentInstrumentType === 'NETBANKING') {
+            return {
+                ...response,
+                pgTransactionId: payment?.pgTransactionId,
+                bankId: payment?.bankId,
+            }
+        }
+    }
 };
