@@ -136,7 +136,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                 html: html
             });
 
-            return res.redirect(`https://sbiea.co.in/payment-details?type=${payment.paymentType}&id=${payment.eventRegistrationId}`);
+            return res.redirect(`https://sbiea.co.in/payment-success?type=${payment.paymentType}&id=${payment.eventRegistrationId}&status=success`);
         }
     } else if (parsedResponse.code === 'PAYMENT_PENDING') {
         const payment = await prisma.payment.update({
@@ -185,7 +185,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                     paymentStatus: 'PENDING',
                 },
             });
-            return res.redirect(`https://sbiea.co.in/payment-details?type=${payment.paymentType}&id=${payment.eventRegistrationId}`);
+            return res.redirect(`https://sbiea.co.in/payment-success?type=${payment.paymentType}&id=${payment.eventRegistrationId}&status=pending`);
         }
     } else {
         const payment = await prisma.payment.update({
@@ -233,7 +233,7 @@ export const VerifyPayment = async (req: ValidatedRequest<VerifyPaymentRequestSc
                     paymentStatus: 'FAILED',
                 },
             });
-            return res.redirect(`https://sbiea.co.in/payment-details?type=${payment.paymentType}&id=${payment.eventRegistrationId}`);
+            return res.redirect(`https://sbiea.co.in/payment-success?type=${payment.paymentType}&id=${payment.eventRegistrationId}&status=failed`);
         }
     }
 };
